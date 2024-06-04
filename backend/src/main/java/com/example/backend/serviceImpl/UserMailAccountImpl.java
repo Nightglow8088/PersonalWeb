@@ -8,6 +8,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+
 @Service
 public class UserMailAccountImpl implements UserMailAccountService {
 
@@ -39,5 +40,9 @@ public class UserMailAccountImpl implements UserMailAccountService {
         return false;
     }
 
+    @Override
+    public void save(UserMailAccount userMailAccount){
+        userMailAccountRepository.save(userMailAccount);
+    }
 
 }

@@ -26,7 +26,6 @@ public class SecurityController {
 
     private final UserMailAccountService userMailAccountService;
 
-
     private final JwtUtils jwtUtils;
 
 
@@ -35,9 +34,7 @@ public class SecurityController {
         this.userService = userService;
         this.jwtUtils =  jwtUtils;
         this.userMailAccountService = userMailAccountService;
-
     }
-
 
 
     @PostMapping("/login")

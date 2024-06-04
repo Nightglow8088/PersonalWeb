@@ -17,13 +17,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig  {
-
-
     private final CustomAuthenticationProvider customAuthenticationProvider;
     private final JwtRequestFilter jwtRequestFilter;
     private final AuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final AccessDeniedHandler customAccessDeniedHandler;
-
 
     @Autowired
     public SecurityConfig(CustomAuthenticationProvider customAuthenticationProvider, JwtRequestFilter jwtRequestFilter,

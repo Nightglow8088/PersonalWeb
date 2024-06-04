@@ -22,7 +22,6 @@ public class UserAccountServiceImpl implements UserAccountService {
 
     private final UserMailAccountService userMailAccountService;
 
-
     @Autowired
     public UserAccountServiceImpl(UserAccountRepository userRepository, UserMailAccountService userMailAccountService) {
         this.userRepository = userRepository;
@@ -72,6 +71,7 @@ public class UserAccountServiceImpl implements UserAccountService {
         userMailAccount.setEnabled(false);
         userMailAccount.setVerificationToken(UUID.randomUUID().toString());
         userRepository.save(user);
+        userMailAccountService.save(userMailAccount);
 
         String verificationLink = "http://localhost:8080/api/auth/verify?token=" + userMailAccount.getVerificationToken();
         userMailAccountService.sendEmail(userMailAccount.getMailAccount(), "Email Verification", "Please click the link to verify your email: " + verificationLink);

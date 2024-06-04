@@ -28,7 +28,3 @@ spring:
 jwt:
   secret: r6LZkm4iTlmgEPCjtT0ocMHIi5OeDPG5mE9Gp+uZ9O0J6RFKXtB2x7H8hdnYWUPsk5BxPqCvP0b9R1cOP0kW+A==
   expiration: 86400000 # 1 day in milliseconds
-
-
-
-
