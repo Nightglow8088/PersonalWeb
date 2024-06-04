@@ -1,0 +1,34 @@
+#spring.application.name=backend
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: kevin
+    password: 35636752
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  mail:
+    host: smtp.office365.com
+    port: 587
+    username: mn961132@outlook.com
+    password: Aa35636752*
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+
+jwt:
+  secret: r6LZkm4iTlmgEPCjtT0ocMHIi5OeDPG5mE9Gp+uZ9O0J6RFKXtB2x7H8hdnYWUPsk5BxPqCvP0b9R1cOP0kW+A==
+  expiration: 86400000 # 1 day in milliseconds
+
+
+
+
