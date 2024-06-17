@@ -1,5 +1,6 @@
 package com.example.backend.services;
 
+import com.example.backend.model.AuthDTO;
 import com.example.backend.model.Users;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -16,6 +17,9 @@ public interface UserAccountService {
 
     void register(Users user);
 
+    Users login(AuthDTO authDTO);
 
 
-    }
+
+
+}

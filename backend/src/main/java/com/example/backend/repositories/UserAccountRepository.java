@@ -14,7 +14,16 @@ public interface UserAccountRepository extends JpaRepository<Users, Long> {
     @Query(value = "SELECT * FROM user_account.basic_account WHERE name = :username AND password= :password", nativeQuery = true)
     Users findMatchedUser(@Param("username") String username, @Param("password") String password);
 
-    Users findByMailAddress(String email);
+
+
+    @Query(value = "SELECT * FROM user_account.basic_account ba " +
+            "join user_account.user_mail_account us " +
+            "on ba.mail_address  = us.mail_account " +
+            "WHERE ba.mail_address  = :email AND " +
+            "ba.password =:password and " +
+            "us.enabled", nativeQuery = true)
+
+    Users findByMailAddress(@Param("email") String email, @Param("password") String password);
 
 
 }

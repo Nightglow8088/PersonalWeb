@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+AU+VIC:wght@100..400&display=swap');
+
+
+.section {
+    position: relative;
+    height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+  }
+  
+  .header {
+    background-image: url('/src/img/homePage/image3.png');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto 100%; /* 图片高度占满，高度100%，宽度自动适应 */
+}
+  
+  .content {
+    /* background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px; */
+  }
+  
+  .section h1 {
+    font-size: 3em;
+  }
+  
+  .homeBlogTitle {
+    font-family: "Playwrite AU VIC", cursive;
+    font-optical-sizing: auto;
+    font-weight: 100;
+    font-style: normal;
+  }

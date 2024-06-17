@@ -73,7 +73,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     private boolean isPublicEndpoint(String uri) {
         // 定义公共端点
-        return uri.equals("/api/auth/login") || uri.equals("/api/auth/register") || uri.equals("/api/auth/refresh") || uri.startsWith("/h2-console");
+        return uri.equals("/api/auth/login") || uri.equals("/api/auth/register") || uri.equals("/api/auth/verify") || uri.equals("/api/auth/refresh") || uri.startsWith("/h2-console");
     }
 
 }

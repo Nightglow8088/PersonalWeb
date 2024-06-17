@@ -1,24 +1,41 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import SignIn from './login/SignIn';
+import SignUp from './register/SignUp';
+import AssembledHomePage from './homePage/AssembledHomePage.js';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/SignIn">About</Link>
+            </li>
+            <li>
+              <Link to="/SignUp">Contact</Link>
+            </li>
+            <li>
+              <Link to="/Home">Home</Link>
+            </li>
+          </ul>
+        </nav>
+        <Routes>
+          <Route path="/" />
+          <Route path="/SignIn" element={<SignIn />} />
+          <Route path="/SignUp" element={<SignUp />} />
+          <Route path="/Home" element={<AssembledHomePage />} />
+
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

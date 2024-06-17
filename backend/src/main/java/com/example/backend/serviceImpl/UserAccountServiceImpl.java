@@ -1,5 +1,6 @@
 package com.example.backend.serviceImpl;
 
+import com.example.backend.model.AuthDTO;
 import com.example.backend.model.UserMailAccount;
 import com.example.backend.model.Users;
 import com.example.backend.repositories.UserAccountRepository;
@@ -75,6 +76,13 @@ public class UserAccountServiceImpl implements UserAccountService {
 
         String verificationLink = "http://localhost:8080/api/auth/verify?token=" + userMailAccount.getVerificationToken();
         userMailAccountService.sendEmail(userMailAccount.getMailAccount(), "Email Verification", "Please click the link to verify your email: " + verificationLink);
+
+    }
+
+    @Override
+    public Users login(AuthDTO authDTO) {
+        //如果是空的呢
+        return userRepository.findByMailAddress(authDTO.getMailAddress(), authDTO.getPassword());
 
     }
 }

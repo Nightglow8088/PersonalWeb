@@ -40,7 +40,13 @@ public class SecurityController {
     @PostMapping("/login")
     public ResponseEntity<Response<?>> login(@RequestBody AuthDTO authRequest) {
         try {
-            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getName(), authRequest.getPassword()));
+            Users user = userService.login(authRequest);
+            if(user==null){
+                Response<String> response = Response.error("user not found or have not verified by mail");
+                return new ResponseEntity<>(response, HttpStatus.NOT_ACCEPTABLE);
+            }
+
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getMailAddress(), authRequest.getPassword()));
             String jwt = jwtUtils.generateJwtToken(authentication);
             Response<String> response = Response.ok(jwt);
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -66,7 +72,7 @@ public class SecurityController {
             return new ResponseEntity<>(Response.ok("Email verified successfully."), HttpStatus.OK);
         }
         else {
-            return new ResponseEntity<>(Response.ok("Invalid verification token."),HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<>(Response.error("Invalid verification token."),HttpStatus.NOT_ACCEPTABLE);
         }
     }
 

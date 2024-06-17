@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,6 +13,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
+
 
 function Copyright(props) {
   return (
@@ -31,13 +34,78 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
+  
+  const handleEmailChange = (event) => {
+    const value = event.target.value;
+    setEmail(value);
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(value)) {
+      setEmailError('Invalid email address.');
+    } else {
+      setEmailError('');
+    }
+  };
+
+  //点击sign in
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const password = data.get('password');
+    const email = data.get('email');
+
+    if (!email || !password) {
+      alert('All fields are required. 请输入全部信息');
+      return;
+    }
+
+    // Check if email format is correct
+    if (emailError) {
+      alert('Invalid email address.邮箱格式不对');
+      return;
+    }
+
+    
+    const bodyJSON = {
+      password: password,
+      mailAddress: email
+  };
+
+                         
+  // const url = `${process.env.REACT_BACKEND_URL}/api/auth/register`
+  let url = `${process.env.REACT_APP_BACKEND_URL}/api/auth/login`;
+
+  console.log("url: "+url)
+
+  try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(bodyJSON) // Use the correct JSON body
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log('Success:', result);
+  } 
+  catch (error) {
+      console.error('Error:', error);
+  }
+
+  navigate('/register');
+
+
+
+
+
   };
 
   return (
@@ -68,6 +136,10 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              value={email}
+              onChange={handleEmailChange}
+              error={!!emailError}
+              helperText={emailError}
             />
             <TextField
               margin="normal"

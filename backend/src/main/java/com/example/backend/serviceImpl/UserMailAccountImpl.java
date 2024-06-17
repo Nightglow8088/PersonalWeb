@@ -24,7 +24,7 @@ public class UserMailAccountImpl implements UserMailAccountService {
         message.setTo(to);
         message.setSubject(subject);
         message.setText(text);
-        message.setFrom("Personal Web");  // 设置发件人
+        message.setFrom("mn961132@outlook.com");  // 设置发件人
         mailSender.send(message);
     }
 
