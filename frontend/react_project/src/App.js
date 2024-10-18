@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import SignIn from './login/SignIn';
 import SignUp from './register/SignUp';
 import AssembledHomePage from './homePage/AssembledHomePage.js';
+import BasicPage from './Profile/ProfileBasicPage.js';
 
 
 function App() {
@@ -25,6 +26,9 @@ function App() {
             <li>
               <Link to="/Home">Home</Link>
             </li>
+            <li>
+              <Link to="/Profile">Profile</Link>
+            </li>
           </ul>
         </nav>
         <Routes>
@@ -32,6 +36,8 @@ function App() {
           <Route path="/SignIn" element={<SignIn />} />
           <Route path="/SignUp" element={<SignUp />} />
           <Route path="/Home" element={<AssembledHomePage />} />
+          <Route path="/Profile" element={<BasicPage />} />
+
 
         </Routes>
       </div>
