@@ -4,8 +4,11 @@ import "./ProfileBasicPage.css"
 import avatar from '../img/profilePage/Avatar.jpg';
 import PointDume from '../img/profilePage/PointDume.jpg';
 import GoldenBridge from '../img/profilePage/GoldenBridge.jpg';
-
-
+import Dal from '../img/profilePage/Oakland_Road_Park.jpg';
+import PDFIcon from '../img/icon/PDFIcon.svg';
+import CertificateIcon from '../img/icon/certificate-solid.svg';
+import ResumePDF from '../docs/Resume2024Fall.pdf';
+import CertificatePDF from '../docs/certificate.jpg';
 import Gitee from '../img/profilePage/gitee-svgrepo-com.svg';
 
 
@@ -34,7 +37,7 @@ export default function BasicPage() {
 
                 </div>
                 <div className="ms-3" style={{ marginTop: '130px' }}>
-                  <h5>Mingxuan Bo/伯明轩</h5>
+                  <h5>Mingxuan Bo/Kevin</h5>
                   <p>Los Angeles</p>
                 </div>
               </div>
@@ -69,38 +72,300 @@ export default function BasicPage() {
               <div className="card-body p-4 text-black">
                 <div className="mb-5 text-body">
                   <p className="lead fw-normal mb-1">About</p>
-                  <div className="p-4 bg-body-tertiary">
-                    {/* <p className="font-italic mb-1">Web Developer</p>
-                    <p className="font-italic mb-1">Lives in New York</p>*/}
-                    <p className="font-italic mb-0">Photographer</p> 
+                  <div className="p-4 bg-body-tertiary d-grid gap-3">
 
-                    <div class="card">
-                      <h5 class="card-header">Featured</h5>
+                    {/* 简历card */}
+                    <div class="card  ">
+                      <h5 class="card-header">Resume</h5>
                       <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary" data-mdb-ripple-init>Go somewhere</a>
+                        <div class="row">
+                          <div class="col-md-6 d-flex align-items-center justify-content-center">
+                            <a href={ResumePDF} target="_blank" rel="noopener noreferrer" className="me-3">
+                              <img src={PDFIcon} alt="PDF Icon" width="50" height="50" style={{ color: '#E02F2F', cursor: 'pointer' }} />
+                            </a>
+                          </div>
+                          <div class="col-md-6 d-flex align-items-center justify-content-center">
+                            <p class="card-text ">
+                              Mingxuan Bo
+                            </p>
+                          </div>
+                        </div>
                       </div>
                     </div>
 
+                    {/* 学历card */}
                     <div class="card">
-                      <h5 class="card-header">Featured</h5>
-                      <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary" data-mdb-ripple-init>Go somewhere</a>
+                      <h5 class="card-header">Education</h5>
+                      <div class="card-body ">
+
+                        {/* usc经历 */}
+                        <div class="card mb-3" >
+                          <div class="card-body">
+                            <h5 class="card-title">University of Southern California</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">M.S. Computer Science </h6>
+                            <div class="card-text">
+                              <div class="d-flex flex-column">
+                              <div class="row">
+                                  <div class="col-md-3">Directions:</div>
+                                  <div class="col-md-9">Full-stack development, Game development, AI</div>
+                                </div>
+                              </div>
+
+                            </div>
+                            
+
+                          </div>
+                        </div>
+
+                        {/* dal经历 */}
+                        <div class="card" >
+                          <div class="card-body">
+                            <h5 class="card-title">Dalhousie University</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">B.S. Computer Science </h6>
+                            <div class="card-text">
+                              <div class="d-flex flex-column">
+                                <div class="row">
+                                  <div class="col-md-3">Certificate:</div>
+                                  <div class="col-md-9">Certificate in Communication Technologies and Cyber Security</div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-3">Scholarship:</div>
+                                  <div class="col-md-9">Awarded sexton scholar twice, in 2021 and 2022.</div>
+                                </div>
+
+                              <div class="row">
+                                <div class="col-md-3">Achievements:</div>
+                                <div class="col-md-9">Graduated with Sexton Distinction for academic excellence, ranking in the top 5% of the class by GPA.</div>
+                              </div>
+
+                              </div>                            
+                            </div>
+                          </div>
+                        </div>
+
+
                       </div>
                     </div>
 
 
-                    <div class="card">
-                      <h5 class="card-header">Featured</h5>
+                      {/* 实习card */}
+                    <div class="card  ">
+                      <h5 class="card-header">Internship</h5>
                       <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary" data-mdb-ripple-init>Go somewhere</a>
+
+                        {/* 通用实习 */}
+                        <div class="card mb-3" >
+                          <div class="card-body">
+                            <h5 class="card-title">Ros2 Software Engineer</h5>
+                            <h6 class="card-subtitle mb-1 " style={{ color: '#000000', fontSize: '0.875rem' }} >General Motors</h6>
+                            <h6 class="card-subtitle mb-1 text-muted" style={{ fontSize: '0.875rem' }}>Jun 2024 - Aug 2024 · 3 mos</h6>
+                            <h6 class="card-subtitle mb-1 text-muted" style={{ fontSize: '0.875rem' }}>Shanghai, China · On-site</h6>
+
+                            <p class="card-text" style={{ lineHeight: '1.2' }}>
+                              Developed a client-server application that integrates ROS 2 services with a Qt graphical user interface for monitoring and visualizing the number of active clients and retrieving priority data from a remote server.
+                            </p>
+
+                            <p class="card-text" style={{ lineHeight: '1.2' , fontWeight: 'bold' }}>
+                              ROS2, C++, CI/CD
+                            </p>
+                          </div>
+                        </div>
+
+                      {/* 创基实习 */}
+                        <div class="card mb-3" >
+                          <div class="card-body">
+                            <h5 class="card-title">Back End Developer</h5>
+                            <h6 class="card-subtitle mb-1 " style={{ color: '#000000', fontSize: '0.875rem' }} >Trial Holdings Inc</h6>
+                            <h6 class="card-subtitle mb-1 text-muted" style={{ fontSize: '0.875rem' }}>Jul 2023 - Dec 2023 · 6 mos</h6>
+                            <h6 class="card-subtitle mb-1 text-muted" style={{ fontSize: '0.875rem' }}>Shandong, China · On-site</h6>
+
+                            <p class="card-text" style={{ lineHeight: '1.2' }}>
+                              Designed and implemented a project framework to ensure efficient database connections and system performance, developed secure APIs, and collaborated effectively with the team to meet client requirements and resolve technical challenges.
+                            </p>
+
+                            <p class="card-text" style={{ lineHeight: '1.2' , fontWeight: 'bold' }}>
+                              SpringBoot, Multithreading, Security
+                            </p>
+                          </div>
+                        </div>
+
+                          {/* 网易实习 */}
+                        <div class="card mb-3" >
+                          <div class="card-body">
+                            <h5 class="card-title">Game Development Engineer</h5>
+                            <h6 class="card-subtitle mb-1 " style={{ color: '#000000', fontSize: '0.875rem' }} >NetEase</h6>
+                            <h6 class="card-subtitle mb-1 text-muted" style={{ fontSize: '0.875rem' }}>Jul 2021 - Aug 2021 · 2 mos</h6>
+                            <h6 class="card-subtitle mb-1 text-muted" style={{ fontSize: '0.875rem' }}>Guangdong, China · Remote</h6>
+
+                            <p class="card-text" style={{ lineHeight: '1.2' }}>
+                              Developed and debugged game character systems in Unity, contributing 500 lines of code, while optimizing gameplay mechanics through collaboration with planning and UX teams.                       
+                            </p>
+
+                            <p class="card-text" style={{ lineHeight: '1.2' , fontWeight: 'bold' }}>
+                              Unity, C#, Game Development
+                            </p>
+                          </div>
+                        </div>
                       </div>
                     </div>
+
+
+                    {/* 学校项目card */}
+                    <div class="card">
+                      <h5 class="card-header">Academic Experience</h5>
+                      <div class="card-body ">
+
+                        {/* 现在弄得个人网站 */}
+                        <div class="card mb-3" >
+                          <div class="card-body">
+                            <h5 class="card-title">Personal Web Project</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">June 2024 - Now</h6>
+                            <div class="card-text">
+
+                              <div class="d-flex flex-column ">
+                                <div class="mb-2">
+                                  1. Personal website based on React, SpringBoot and Postgred.
+                                </div>
+                                <div class="mb-2">
+                                  2. In future plans, I aim to add photo display and blog features, including user login and commenting capabilities. Keep pushing forward!
+                                </div>
+
+                              </div>
+
+                            </div>
+                            <a href="https://github.com/Nightglow8088/PersonalWeb" target="_blank" rel="noopener noreferrer">
+                              <p class="card-text">GitHub Link.</p>
+                            </a>
+
+
+                          </div>
+                          
+                        </div>
+
+                        {/* dal全栈 */}
+                        <div class="card mb-3" >
+                          <div class="card-body">
+                            <h5 class="card-title">Full Stack Website Building Project</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">May 2022 - July 2022 </h6>
+                            <div class="card-text">
+                              <div class="d-flex flex-column ">
+                                <div class="mb-2">
+                                  1. Developed a Trello-like website for task management, learning Spring Java and React to create a responsive and userfriendly interface</div>
+                                <div class="mb-2">
+                                  2. Utilized Agile development methodologies to adapt to changing project requirements and deliver iterative prototypes for user feedback.
+                                </div>
+                              </div>
+
+                            </div>
+                            <a href="https://github.com/Nightglow8088/TrelloLikeProject" target="_blank" rel="noopener noreferrer">
+                              <p class="card-text">GitHub Link.</p>
+                            </a>
+                          </div>
+                        </div>
+
+
+                        {/* usc全栈 */}
+                        <div class="card mb-3" >
+                          <div class="card-body">
+                            <h5 class="card-title">Stock Watch and Trading Program</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">August 2024 - December 2024 </h6>
+                            <div class="card-text">
+                              <div class="d-flex flex-column ">
+                                <div class="mb-2">
+                                  1. Developed a stock trading and monitoring website with Node.js, MongoDB, and React, deployed on Google Cloud.
+                                </div>
+                                <div class="mb-2">
+                                  2. Enabled users to search and favorite stocks, view current and historical prices, and calculate potential profits or losses from their holdings.
+                                </div>
+                                <div class="mb-2">
+                                  3. Provided users with access to the latest company news and the ability to share it on Twitter and Facebook.
+                                </div>
+                                <div class="mb-2">
+                                  4. Implemented stock buying and selling on the website, with immediate database updates and real-time tracking of users' capital balances and stock positions.
+                                </div>
+                              </div>
+
+                              <a href="https://github.com/Nightglow8088/usc571Stock" target="_blank" rel="noopener noreferrer">
+                                <p class="card-text">GitHub Link.</p>
+                              </a>
+
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* dal的4168游戏开发 */}
+                        <div class="card" >
+                          <div class="card-body">
+                            <h5 class="card-title">Unity Game Development Project</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">September 2022 - December 2022</h6>
+                            <div class="card-text">
+
+                              <div class="d-flex flex-column ">
+                                <div class="mb-2">
+                                  1. Led a team of 4 to develop an RPG adventure game.
+                                </div>
+                                <div class="mb-2">
+                                  2. Designing the game treatment document, deciding on the game's backstory, core mechanics, and gameplay highlights.
+                                </div>
+                                <div class="mb-2">
+                                  3. Implemented the required functionality with Unity and Blender, developed the backpack system, dialog system, a large and complex terrain, character movement scripts and animations and totally coded 600 lines.
+                                </div>
+                              </div>
+                              <a href="https://github.com/Nightglow8088/4168Project" target="_blank" rel="noopener noreferrer">
+                                <p class="card-text">GitHub Link.</p>
+                              </a>
+                              
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    {/* 证书card */}
+                    <div class="card  ">
+                      <h5 class="card-header">Certificate</h5>
+                      <div class="card-body" style={{paddingTop:"0"}}>
+
+                        <ul class="list-group list-group-light list-group-small">
+                          {/* <li class="list-group-item px-3"></li> */}
+                          <li class="list-group-item px-3">
+                            <div class="row ">
+                                <div class="col-md-6 d-flex align-items-center justify-content-center">
+                                  <a href={CertificatePDF} target="_blank" rel="noopener noreferrer" className="me-3">
+                                    <img src={CertificateIcon} alt="PDF Icon" width="40" height="40" style={{ color: '#E02F2F', cursor: 'pointer' }} />
+                                  </a>
+                                </div>
+                                <div class="col-md-6 d-flex align-items-center justify-content-center">
+                                  <p class="card-text text-center">
+                                    Certificate in Communication Technologies and Cyber Security
+                                  </p>
+                                </div>
+                              </div>
+                          </li>
+                          <li class="list-group-item px-3">
+                            <div class="row">
+                              <div class="col-md-6 d-flex align-items-center justify-content-center">
+                                <a href='https://www.coursera.org/professional-certificates/meta-back-end-developer' target="_blank" rel="noopener noreferrer" className="me-3">
+                                  <img src={CertificateIcon} alt="PDF Icon" width="40" height="40" style={{ color: '#E02F2F', cursor: 'pointer' }} />
+                                </a>
+                              </div>
+                              <div class="col-md-6 d-flex align-items-center justify-content-center">
+                                <p class="card-text text-center">
+                                  Meta Backend (On Going)
+                                </p>
+                              </div>
+                            </div>
+                          </li>
+
+                          <li class="list-group-item px-3"></li>
+
+                        </ul>
+                      </div>
+                    </div>
+
+
 
 
 
@@ -108,11 +373,11 @@ export default function BasicPage() {
                 </div>
                 <div className="d-flex justify-content-between align-items-center mb-4 text-body">
                   <p className="lead fw-normal mb-0">Recent photos</p>
-                  <p className="mb-0">
+                  {/* <p className="mb-0">
                     <a href="#!" className="text-muted">
                       Show all
                     </a>
-                  </p>
+                  </p> */}
                 </div>
 
                 <MDBCarousel showIndicators showControls fade>
@@ -129,55 +394,18 @@ export default function BasicPage() {
                     <img src={PointDume} className='d-block w-100' alt='...' style={{ maxHeight: '400px', objectFit: 'cover' }} />
                     <MDBCarouselCaption>
                       <h5>Point Dume</h5>
-                      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                      <p>Located at Malibu California, landscapes formed because of physical faults in the territory </p>
                     </MDBCarouselCaption>
                   </MDBCarouselItem>
 
                   <MDBCarouselItem itemId={3}>
-                    <img src={GoldenBridge} className='d-block w-100' alt='...' style={{ maxHeight: '400px', objectFit: 'cover' }} />
+                    <img src={Dal} className='d-block w-100' alt='...' style={{ maxHeight: '400px', objectFit: 'cover' }} />
                     <MDBCarouselCaption>
-                      <h5>Third slide label</h5>
-                      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                      <h5>Oakland Road Park</h5>
+                      <p>Located near Dalhousie University, this secluded park borders the Atlantic Ocean, offering unique and captivating views.</p>
                     </MDBCarouselCaption>
                   </MDBCarouselItem>
                 </MDBCarousel> 
-
-                
-
-
-
-                {/* <div className="row g-2">
-                  <div className="col mb-2">
-                    <img
-                      src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
-                      alt="image 1"
-                      className="w-100 rounded-3"
-                    />
-                  </div>
-                  <div className="col mb-2">
-                    <img
-                      src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
-                      alt="image 1"
-                      className="w-100 rounded-3"
-                    />
-                  </div>
-                </div>
-                <div className="row g-2">
-                  <div className="col">
-                    <img
-                      src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp"
-                      alt="image 1"
-                      className="w-100 rounded-3"
-                    />
-                  </div>
-                  <div className="col">
-                    <img
-                      src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp"
-                      alt="image 1"
-                      className="w-100 rounded-3"
-                    />
-                  </div> */}
-                {/* </div> */}
               </div>
             </div>
           </div>
