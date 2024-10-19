@@ -10,10 +10,13 @@ import CertificateIcon from '../img/icon/certificate-solid.svg';
 import ResumePDF from '../docs/Resume2024Fall.pdf';
 import CertificatePDF from '../docs/certificate.jpg';
 import Gitee from '../img/profilePage/gitee-svgrepo-com.svg';
+import Header from '../homePage/headerPage/Header';
 
 
 export default function BasicPage() {
   return (
+    <div>
+    <Header />
     <section className="h-100 gradient-custom-2">
       <div className="container py-5 h-100">
         <div className="row d-flex justify-content-center">
@@ -412,6 +415,7 @@ export default function BasicPage() {
         </div>
       </div>
     </section>
+    </div>
 
   );
 }

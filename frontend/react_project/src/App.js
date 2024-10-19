@@ -1,7 +1,7 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link ,Navigate} from 'react-router-dom';
 import SignIn from './login/SignIn';
 import SignUp from './register/SignUp';
 import AssembledHomePage from './homePage/AssembledHomePage.js';
@@ -12,7 +12,7 @@ function App() {
   return (
     <Router>
       <div>
-        <nav>
+        {/* <nav>
           <ul>
             <li>
               <Link to="/">Home</Link>
@@ -30,9 +30,9 @@ function App() {
               <Link to="/Profile">Profile</Link>
             </li>
           </ul>
-        </nav>
+        </nav> */}
         <Routes>
-          <Route path="/" />
+          <Route path="/" element={<Navigate to="/Profile" replace />} /> 
           <Route path="/SignIn" element={<SignIn />} />
           <Route path="/SignUp" element={<SignUp />} />
           <Route path="/Home" element={<AssembledHomePage />} />
