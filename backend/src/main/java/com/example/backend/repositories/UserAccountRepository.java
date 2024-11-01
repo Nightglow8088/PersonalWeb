@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserAccountRepository extends JpaRepository<Users, Long> {
 
-    @Query(value = "SELECT * FROM user_account.basic_account WHERE name = :username AND password= :password", nativeQuery = true)
-    Users findMatchedUser(@Param("username") String username, @Param("password") String password);
+    @Query(value = "SELECT * FROM user_account.basic_account WHERE  mail_address= :mailAddress AND password= :password", nativeQuery = true)
+    Users findMatchedUser(@Param("mailAddress") String mailAddress, @Param("password") String password);
 
 
 

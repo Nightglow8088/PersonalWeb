@@ -6,6 +6,8 @@ import SignIn from './login/SignIn';
 import SignUp from './register/SignUp';
 import AssembledHomePage from './homePage/AssembledHomePage.js';
 import BasicPage from './Profile/ProfileBasicPage.js';
+import ImageGallery from './ImageGallery/ImageGallery.js';
+import BlogEditor from './blog/codeTemp/BlogEditor.js';
 
 
 function App() {
@@ -37,8 +39,10 @@ function App() {
           <Route path="/SignUp" element={<SignUp />} />
           <Route path="/Home" element={<AssembledHomePage />} />
           <Route path="/Profile" element={<BasicPage />} />
+          <Route path="/Gallery" element={<ImageGallery />} />
+          <Route path="/test" element={<BlogEditor />} />
 
-
+          
         </Routes>
       </div>
     </Router>

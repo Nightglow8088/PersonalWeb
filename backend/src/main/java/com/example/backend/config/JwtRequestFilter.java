@@ -71,9 +71,14 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         chain.doFilter(request, response);
     }
 
+    //这个绝对要改的 当没有header头的时候执行这段操作
     private boolean isPublicEndpoint(String uri) {
+        // 定义公共端点，确保ImagesController及其子路径被包括
+        return uri.startsWith("/api/auth/") || // 包括所有/auth下的路径
+                uri.startsWith("/ImagesController/") || // 包括ImagesController及其子路径
+                uri.startsWith("/h2-console/"); // 如果你还在使用 H2 控制台
         // 定义公共端点
-        return uri.equals("/api/auth/login") || uri.equals("/api/auth/register") || uri.equals("/api/auth/verify") || uri.equals("/api/auth/refresh") || uri.startsWith("/h2-console");
+//        return uri.equals("/api/auth/login") || uri.equals("/api/auth/register") || uri.equals("/api/auth/verify") || uri.equals("/api/auth/refresh") || uri.startsWith("/h2-console");
     }
 
 }

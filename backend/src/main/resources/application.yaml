@@ -1,9 +1,11 @@
 #spring.application.name=backend
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: kevin
-    password: 35636752
+    url: jdbc:postgresql://personalweb.cvo460mm2fia.us-west-1.rds.amazonaws.com:5432/postgres
+#    url: jdbc:postgresql://localhost:5432/postgres
+#    username: kevin
+    username: Nightglow
+    password: Aa35636752*
     driver-class-name: org.postgresql.Driver
   jpa:
     properties:

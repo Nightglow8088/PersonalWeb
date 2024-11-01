@@ -19,12 +19,18 @@ const Header = () => {
         <Link component={RouterLink} to="/Profile" color="inherit" sx={{ textDecoration: 'none', margin: '0 10px', '&:hover': { color: '#000000' } }}>
           About
         </Link>
+        <Link component={RouterLink} to="/Gallery" color="inherit" sx={{ textDecoration: 'none', margin: '0 10px', '&:hover': { color: '#000000' } }}>
+          Gallery
+        </Link>
         <Link component={RouterLink} to="/SignIn" color="inherit" sx={{ textDecoration: 'none', margin: '0 10px', '&:hover': { color: '#000000' } }}>
           Blog
         </Link>
         <Link component={RouterLink} to="/SignUp" color="inherit" sx={{ textDecoration: 'none', margin: '0 10px', '&:hover': { color: '#000000' } }}>
           Contact
         </Link>
+
+
+        
       </Toolbar>
     </AppBar>
   );

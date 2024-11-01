@@ -9,7 +9,7 @@ import PDFIcon from '../img/icon/PDFIcon.svg';
 import CertificateIcon from '../img/icon/certificate-solid.svg';
 import ResumePDF from '../docs/Resume2024Fall.pdf';
 import CertificatePDF from '../docs/certificate.jpg';
-import Gitee from '../img/profilePage/gitee-svgrepo-com.svg';
+import Gitee from '../img/icon/gitee-svgrepo-com.svg';
 import Header from '../homePage/headerPage/Header';
 
 
@@ -78,17 +78,17 @@ export default function BasicPage() {
                   <div className="p-4 bg-body-tertiary d-grid gap-3">
 
                     {/* 简历card */}
-                    <div class="card  ">
-                      <h5 class="card-header">Resume</h5>
-                      <div class="card-body">
-                        <div class="row">
-                          <div class="col-md-6 d-flex align-items-center justify-content-center">
+                    <div className="card">
+                      <h5 className="card-header">Resume</h5>
+                      <div className="card-body">
+                        <div className="row">
+                          <div className="col-md-6 d-flex align-items-center justify-content-center">
                             <a href={ResumePDF} target="_blank" rel="noopener noreferrer" className="me-3">
                               <img src={PDFIcon} alt="PDF Icon" width="50" height="50" style={{ color: '#E02F2F', cursor: 'pointer' }} />
                             </a>
                           </div>
-                          <div class="col-md-6 d-flex align-items-center justify-content-center">
-                            <p class="card-text ">
+                          <div className="col-md-6 d-flex align-items-center justify-content-center">
+                            <p className="card-text ">
                               Mingxuan Bo
                             </p>
                           </div>
@@ -97,48 +97,45 @@ export default function BasicPage() {
                     </div>
 
                     {/* 学历card */}
-                    <div class="card">
-                      <h5 class="card-header">Education</h5>
-                      <div class="card-body ">
+                    <div className="card">
+                      <h5 className="card-header">Education</h5>
+                      <div className="card-body ">
 
                         {/* usc经历 */}
-                        <div class="card mb-3" >
-                          <div class="card-body">
-                            <h5 class="card-title">University of Southern California</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">M.S. Computer Science </h6>
-                            <div class="card-text">
-                              <div class="d-flex flex-column">
-                              <div class="row">
-                                  <div class="col-md-3">Directions:</div>
-                                  <div class="col-md-9">Full-stack development, Game development, AI</div>
+                        <div className="card mb-3" >
+                          <div className="card-body">
+                            <h5 className="card-title">University of Southern California</h5>
+                            <h6 className="card-subtitle mb-2 text-muted">M.S. Computer Science </h6>
+                            <div className="card-text">
+                              <div className="d-flex flex-column">
+                              <div className="row">
+                                  <div className="col-md-3">Directions:</div>
+                                  <div className="col-md-9">Full-stack development, Game development, AI</div>
                                 </div>
                               </div>
-
                             </div>
-                            
-
                           </div>
                         </div>
 
                         {/* dal经历 */}
-                        <div class="card" >
-                          <div class="card-body">
-                            <h5 class="card-title">Dalhousie University</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">B.S. Computer Science </h6>
-                            <div class="card-text">
-                              <div class="d-flex flex-column">
-                                <div class="row">
-                                  <div class="col-md-3">Certificate:</div>
-                                  <div class="col-md-9">Certificate in Communication Technologies and Cyber Security</div>
+                        <div className="card" >
+                          <div className="card-body">
+                            <h5 className="card-title">Dalhousie University</h5>
+                            <h6 className="card-subtitle mb-2 text-muted">B.S. Computer Science </h6>
+                            <div className="card-text">
+                              <div className="d-flex flex-column">
+                                <div className="row">
+                                  <div className="col-md-3">Certificate:</div>
+                                  <div className="col-md-9">Certificate in Communication Technologies and Cyber Security</div>
                                 </div>
-                                <div class="row">
-                                  <div class="col-md-3">Scholarship:</div>
-                                  <div class="col-md-9">Awarded sexton scholar twice, in 2021 and 2022.</div>
+                                <div className="row">
+                                  <div className="col-md-3">Scholarship:</div>
+                                  <div className="col-md-9">Awarded sexton scholar twice, in 2021 and 2022.</div>
                                 </div>
 
-                              <div class="row">
-                                <div class="col-md-3">Achievements:</div>
-                                <div class="col-md-9">Graduated with Sexton Distinction for academic excellence, ranking in the top 5% of the class by GPA.</div>
+                              <div className="row">
+                                <div className="col-md-3">Achievements:</div>
+                                <div className="col-md-9">Graduated with Sexton Distinction for academic excellence, ranking in the top 5% of the class by GPA.</div>
                               </div>
 
                               </div>                            
@@ -152,59 +149,59 @@ export default function BasicPage() {
 
 
                       {/* 实习card */}
-                    <div class="card  ">
-                      <h5 class="card-header">Internship</h5>
-                      <div class="card-body">
+                    <div className="card  ">
+                      <h5 className="card-header">Internship</h5>
+                      <div className="card-body">
 
                         {/* 通用实习 */}
-                        <div class="card mb-3" >
-                          <div class="card-body">
-                            <h5 class="card-title">Ros2 Software Engineer</h5>
-                            <h6 class="card-subtitle mb-1 " style={{ color: '#000000', fontSize: '0.875rem' }} >General Motors</h6>
-                            <h6 class="card-subtitle mb-1 text-muted" style={{ fontSize: '0.875rem' }}>Jun 2024 - Aug 2024 · 3 mos</h6>
-                            <h6 class="card-subtitle mb-1 text-muted" style={{ fontSize: '0.875rem' }}>Shanghai, China · On-site</h6>
+                        <div className="card mb-3" >
+                          <div className="card-body">
+                            <h5 className="card-title">Ros2 Software Engineer</h5>
+                            <h6 className="card-subtitle mb-1 " style={{ color: '#000000', fontSize: '0.875rem' }} >General Motors</h6>
+                            <h6 className="card-subtitle mb-1 text-muted" style={{ fontSize: '0.875rem' }}>Jun 2024 - Aug 2024 · 3 mos</h6>
+                            <h6 className="card-subtitle mb-1 text-muted" style={{ fontSize: '0.875rem' }}>Shanghai, China · On-site</h6>
 
-                            <p class="card-text" style={{ lineHeight: '1.2' }}>
+                            <p className="card-text" style={{ lineHeight: '1.2' }}>
                               Developed a client-server application that integrates ROS 2 services with a Qt graphical user interface for monitoring and visualizing the number of active clients and retrieving priority data from a remote server.
                             </p>
 
-                            <p class="card-text" style={{ lineHeight: '1.2' , fontWeight: 'bold' }}>
+                            <p className="card-text" style={{ lineHeight: '1.2' , fontWeight: 'bold' }}>
                               ROS2, C++, CI/CD
                             </p>
                           </div>
                         </div>
 
                       {/* 创基实习 */}
-                        <div class="card mb-3" >
-                          <div class="card-body">
-                            <h5 class="card-title">Back End Developer</h5>
-                            <h6 class="card-subtitle mb-1 " style={{ color: '#000000', fontSize: '0.875rem' }} >Trial Holdings Inc</h6>
-                            <h6 class="card-subtitle mb-1 text-muted" style={{ fontSize: '0.875rem' }}>Jul 2023 - Dec 2023 · 6 mos</h6>
-                            <h6 class="card-subtitle mb-1 text-muted" style={{ fontSize: '0.875rem' }}>Shandong, China · On-site</h6>
+                        <div className="card mb-3" >
+                          <div className="card-body">
+                            <h5 className="card-title">Back End Developer</h5>
+                            <h6 className="card-subtitle mb-1 " style={{ color: '#000000', fontSize: '0.875rem' }} >Trial Holdings Inc</h6>
+                            <h6 className="card-subtitle mb-1 text-muted" style={{ fontSize: '0.875rem' }}>Jul 2023 - Dec 2023 · 6 mos</h6>
+                            <h6 className="card-subtitle mb-1 text-muted" style={{ fontSize: '0.875rem' }}>Shandong, China · On-site</h6>
 
-                            <p class="card-text" style={{ lineHeight: '1.2' }}>
+                            <p className="card-text" style={{ lineHeight: '1.2' }}>
                               Designed and implemented a project framework to ensure efficient database connections and system performance, developed secure APIs, and collaborated effectively with the team to meet client requirements and resolve technical challenges.
                             </p>
 
-                            <p class="card-text" style={{ lineHeight: '1.2' , fontWeight: 'bold' }}>
+                            <p className="card-text" style={{ lineHeight: '1.2' , fontWeight: 'bold' }}>
                               SpringBoot, Multithreading, Security
                             </p>
                           </div>
                         </div>
 
                           {/* 网易实习 */}
-                        <div class="card mb-3" >
-                          <div class="card-body">
-                            <h5 class="card-title">Game Development Engineer</h5>
-                            <h6 class="card-subtitle mb-1 " style={{ color: '#000000', fontSize: '0.875rem' }} >NetEase</h6>
-                            <h6 class="card-subtitle mb-1 text-muted" style={{ fontSize: '0.875rem' }}>Jul 2021 - Aug 2021 · 2 mos</h6>
-                            <h6 class="card-subtitle mb-1 text-muted" style={{ fontSize: '0.875rem' }}>Guangdong, China · Remote</h6>
+                        <div className="card mb-3" >
+                          <div className="card-body">
+                            <h5 className="card-title">Game Development Engineer</h5>
+                            <h6 className="card-subtitle mb-1 " style={{ color: '#000000', fontSize: '0.875rem' }} >NetEase</h6>
+                            <h6 className="card-subtitle mb-1 text-muted" style={{ fontSize: '0.875rem' }}>Jul 2021 - Aug 2021 · 2 mos</h6>
+                            <h6 className="card-subtitle mb-1 text-muted" style={{ fontSize: '0.875rem' }}>Guangdong, China · Remote</h6>
 
-                            <p class="card-text" style={{ lineHeight: '1.2' }}>
+                            <p className="card-text" style={{ lineHeight: '1.2' }}>
                               Developed and debugged game character systems in Unity, contributing 500 lines of code, while optimizing gameplay mechanics through collaboration with planning and UX teams.                       
                             </p>
 
-                            <p class="card-text" style={{ lineHeight: '1.2' , fontWeight: 'bold' }}>
+                            <p className="card-text" style={{ lineHeight: '1.2' , fontWeight: 'bold' }}>
                               Unity, C#, Game Development
                             </p>
                           </div>
@@ -214,22 +211,22 @@ export default function BasicPage() {
 
 
                     {/* 学校项目card */}
-                    <div class="card">
-                      <h5 class="card-header">Academic Experience</h5>
-                      <div class="card-body ">
+                    <div className="card">
+                      <h5 className="card-header">Academic Experience</h5>
+                      <div className="card-body ">
 
                         {/* 现在弄得个人网站 */}
-                        <div class="card mb-3" >
-                          <div class="card-body">
-                            <h5 class="card-title">Personal Web Project</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">June 2024 - Now</h6>
-                            <div class="card-text">
+                        <div className="card mb-3" >
+                          <div className="card-body">
+                            <h5 className="card-title">Personal Web Project</h5>
+                            <h6 className="card-subtitle mb-2 text-muted">June 2024 - Now</h6>
+                            <div className="card-text">
 
-                              <div class="d-flex flex-column ">
-                                <div class="mb-2">
-                                  1. Personal website based on React, SpringBoot and Postgred.
+                              <div className="d-flex flex-column ">
+                                <div className="mb-2">
+                                  1. Personal website based on React, SpringBoot(deployed on digited ocean) and Postgres(deployed on aws).
                                 </div>
-                                <div class="mb-2">
+                                <div className="mb-2">
                                   2. In future plans, I aim to add photo display and blog features, including user login and commenting capabilities. Keep pushing forward!
                                 </div>
 
@@ -237,7 +234,7 @@ export default function BasicPage() {
 
                             </div>
                             <a href="https://github.com/Nightglow8088/PersonalWeb" target="_blank" rel="noopener noreferrer">
-                              <p class="card-text">GitHub Link.</p>
+                              <p className="card-text">GitHub Link.</p>
                             </a>
 
 
@@ -246,50 +243,50 @@ export default function BasicPage() {
                         </div>
 
                         {/* dal全栈 */}
-                        <div class="card mb-3" >
-                          <div class="card-body">
-                            <h5 class="card-title">Full Stack Website Building Project</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">May 2022 - July 2022 </h6>
-                            <div class="card-text">
-                              <div class="d-flex flex-column ">
-                                <div class="mb-2">
+                        <div className="card mb-3" >
+                          <div className="card-body">
+                            <h5 className="card-title">Full Stack Website Building Project</h5>
+                            <h6 className="card-subtitle mb-2 text-muted">May 2022 - July 2022 </h6>
+                            <div className="card-text">
+                              <div className="d-flex flex-column ">
+                                <div className="mb-2">
                                   1. Developed a Trello-like website for task management, learning Spring Java and React to create a responsive and userfriendly interface</div>
-                                <div class="mb-2">
+                                <div className="mb-2">
                                   2. Utilized Agile development methodologies to adapt to changing project requirements and deliver iterative prototypes for user feedback.
                                 </div>
                               </div>
 
                             </div>
                             <a href="https://github.com/Nightglow8088/TrelloLikeProject" target="_blank" rel="noopener noreferrer">
-                              <p class="card-text">GitHub Link.</p>
+                              <p className="card-text">GitHub Link.</p>
                             </a>
                           </div>
                         </div>
 
 
                         {/* usc全栈 */}
-                        <div class="card mb-3" >
-                          <div class="card-body">
-                            <h5 class="card-title">Stock Watch and Trading Program</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">August 2024 - December 2024 </h6>
-                            <div class="card-text">
-                              <div class="d-flex flex-column ">
-                                <div class="mb-2">
+                        <div className="card mb-3" >
+                          <div className="card-body">
+                            <h5 className="card-title">Stock Watch and Trading Program</h5>
+                            <h6 className="card-subtitle mb-2 text-muted">August 2024 - December 2024 </h6>
+                            <div className="card-text">
+                              <div className="d-flex flex-column ">
+                                <div className="mb-2">
                                   1. Developed a stock trading and monitoring website with Node.js, MongoDB, and React, deployed on Google Cloud.
                                 </div>
-                                <div class="mb-2">
+                                <div className="mb-2">
                                   2. Enabled users to search and favorite stocks, view current and historical prices, and calculate potential profits or losses from their holdings.
                                 </div>
-                                <div class="mb-2">
+                                <div className="mb-2">
                                   3. Provided users with access to the latest company news and the ability to share it on Twitter and Facebook.
                                 </div>
-                                <div class="mb-2">
+                                <div className="mb-2">
                                   4. Implemented stock buying and selling on the website, with immediate database updates and real-time tracking of users' capital balances and stock positions.
                                 </div>
                               </div>
 
                               <a href="https://github.com/Nightglow8088/usc571Stock" target="_blank" rel="noopener noreferrer">
-                                <p class="card-text">GitHub Link.</p>
+                                <p className="card-text">GitHub Link.</p>
                               </a>
 
                             </div>
@@ -297,28 +294,27 @@ export default function BasicPage() {
                         </div>
 
                         {/* dal的4168游戏开发 */}
-                        <div class="card" >
-                          <div class="card-body">
-                            <h5 class="card-title">Unity Game Development Project</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">September 2022 - December 2022</h6>
-                            <div class="card-text">
+                        <div className="card" >
+                          <div className="card-body">
+                            <h5 className="card-title">Unity Game Development Project</h5>
+                            <h6 className="card-subtitle mb-2 text-muted">September 2022 - December 2022</h6>
+                            <div className="card-text">
 
-                              <div class="d-flex flex-column ">
-                                <div class="mb-2">
+                              <div className="d-flex flex-column ">
+                                <div className="mb-2">
                                   1. Led a team of 4 to develop an RPG adventure game.
                                 </div>
-                                <div class="mb-2">
+                                <div className="mb-2">
                                   2. Designing the game treatment document, deciding on the game's backstory, core mechanics, and gameplay highlights.
                                 </div>
-                                <div class="mb-2">
+                                <div className="mb-2">
                                   3. Implemented the required functionality with Unity and Blender, developed the backpack system, dialog system, a large and complex terrain, character movement scripts and animations and totally coded 600 lines.
                                 </div>
                               </div>
                               <a href="https://github.com/Nightglow8088/4168Project" target="_blank" rel="noopener noreferrer">
-                                <p class="card-text">GitHub Link.</p>
+                                <p className="card-text">GitHub Link.</p>
                               </a>
-                              
-
+                            
                             </div>
                           </div>
                         </div>
@@ -327,49 +323,46 @@ export default function BasicPage() {
 
 
                     {/* 证书card */}
-                    <div class="card  ">
-                      <h5 class="card-header">Certificate</h5>
-                      <div class="card-body" style={{paddingTop:"0"}}>
+                    <div className="card  ">
+                      <h5 className="card-header">Certificate</h5>
+                      <div className="card-body" style={{paddingTop:"0"}}>
 
-                        <ul class="list-group list-group-light list-group-small">
+                        <ul className="list-group list-group-light list-group-small">
                           {/* <li class="list-group-item px-3"></li> */}
-                          <li class="list-group-item px-3">
-                            <div class="row ">
-                                <div class="col-md-6 d-flex align-items-center justify-content-center">
+                          <li className="list-group-item px-3">
+                            <div className="row ">
+                                <div className="col-md-6 d-flex align-items-center justify-content-center">
                                   <a href={CertificatePDF} target="_blank" rel="noopener noreferrer" className="me-3">
                                     <img src={CertificateIcon} alt="PDF Icon" width="40" height="40" style={{ color: '#E02F2F', cursor: 'pointer' }} />
                                   </a>
                                 </div>
-                                <div class="col-md-6 d-flex align-items-center justify-content-center">
-                                  <p class="card-text text-center">
+                                <div className="col-md-6 d-flex align-items-center justify-content-center">
+                                  <p className="card-text text-center">
                                     Certificate in Communication Technologies and Cyber Security
                                   </p>
                                 </div>
                               </div>
                           </li>
-                          <li class="list-group-item px-3">
-                            <div class="row">
-                              <div class="col-md-6 d-flex align-items-center justify-content-center">
+                          <li className="list-group-item px-3">
+                            <div className="row">
+                              <div className="col-md-6 d-flex align-items-center justify-content-center">
                                 <a href='https://www.coursera.org/professional-certificates/meta-back-end-developer' target="_blank" rel="noopener noreferrer" className="me-3">
                                   <img src={CertificateIcon} alt="PDF Icon" width="40" height="40" style={{ color: '#E02F2F', cursor: 'pointer' }} />
                                 </a>
                               </div>
-                              <div class="col-md-6 d-flex align-items-center justify-content-center">
-                                <p class="card-text text-center">
+                              <div className="col-md-6 d-flex align-items-center justify-content-center">
+                                <p className="card-text text-center">
                                   Meta Backend (On Going)
                                 </p>
                               </div>
                             </div>
                           </li>
 
-                          <li class="list-group-item px-3"></li>
+                          <li className="list-group-item px-3"></li>
 
                         </ul>
                       </div>
                     </div>
-
-
-
 
 
                   </div>
