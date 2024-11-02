@@ -14,7 +14,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:3000", "http://147.182.199.216") // React 应用运行的地址 本地和云端
+                        .allowedOrigins("http://localhost:3000", "http://www.kevinb.website", "http://147.182.199.216") // React 应用运行的地址 本地和云端
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);

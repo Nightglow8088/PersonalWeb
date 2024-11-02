@@ -32,3 +32,23 @@ docker push kevinb8080/frontend_react:latest
 
 docker build -t kevinb8080/frontend_react:latest --no-cache .
  docker push kevinb8080/frontend_react:latest       
+
+
+
+
+
+
+
+<!-- 
+
+第一组：
+
+ 1. no feeling about moster/ model
+ 2. password sequence
+ 3. san 
+ 4, jump care san low / open door
+ 5. light wight > sendor 
+
+第二组：
+1. sequence
+2.  -->
