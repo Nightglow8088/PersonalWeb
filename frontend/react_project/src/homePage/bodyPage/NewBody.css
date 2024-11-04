@@ -1,0 +1,10 @@
+.backgroundImageContainer {
+    min-height: 100vh; /* 使背景图片至少有100%的视口高度 */
+    background-size: cover;
+    background-position: center center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center; /* 使文本居中 */
+    color: black;
+}

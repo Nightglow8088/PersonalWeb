@@ -31,10 +31,13 @@ docker push kevinb8080/frontend_react:latest
 通过这样的方式，你可以确保你的本地开发镜像和你推送到 Docker Hub 的镜像保持一致，有助于简化开发和部署流程。如果你的本地开发直接使用的是带用户名的镜像（kevinb8080/frontend_react:latest），那么只需构建并更新这一个镜像即可。
 
 docker build -t kevinb8080/frontend_react:latest --no-cache .
- docker push kevinb8080/frontend_react:latest       
+ docker push kevinb8080/frontend_react:latest    
+ docker pull kevinb8080/frontend_react:latest
+docker run -d -p 80:80 kevinb8080/frontend_react:latest
 
 
-
+docker pull kevinb8080/backend_spring:latest
+docker run -d -p 8080:8080 kevinb8080/backend_spring:latest
 
 
 

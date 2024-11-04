@@ -37,7 +37,7 @@ public class SecurityConfig  {
         http
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/","/ImagesController/**", "/home","/api/auth/login",  "/api/auth/register","/api/auth/verify").permitAll()
+                                .requestMatchers("/","/BlogController/**","/ImagesController/**", "/home","/api/auth/login",  "/api/auth/register","/api/auth/verify").permitAll()
                                 .anyRequest().authenticated()
                 )
 //                .formLogin(formLogin ->

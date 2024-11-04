@@ -1,6 +1,10 @@
 package com.example.backend.model;
 
-public class RegistrationInfoDTO {
+import lombok.Data;
 
+@Data
+public class RegistrationInfoDTO {
+    private String mailAddress;
+    private String password;
 
 }

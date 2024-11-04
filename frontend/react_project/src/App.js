@@ -8,39 +8,30 @@ import AssembledHomePage from './homePage/AssembledHomePage.js';
 import BasicPage from './Profile/ProfileBasicPage.js';
 import ImageGallery from './ImageGallery/ImageGallery.js';
 import BlogEditor from './blog/codeTemp/BlogEditor.js';
+import Demo2 from './blog/codeTemp/demo2.js';
+import BlogPostForm from './blog/post/PostSubmit.js';
+import PostShow from './blog/post/PostShow.js';
+import PostDetail from './blog/post/PostDetail.js';
 
 
 function App() {
   return (
     <Router>
       <div>
-        {/* <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/SignIn">About</Link>
-            </li>
-            <li>
-              <Link to="/SignUp">Contact</Link>
-            </li>
-            <li>
-              <Link to="/Home">Home</Link>
-            </li>
-            <li>
-              <Link to="/Profile">Profile</Link>
-            </li>
-          </ul>
-        </nav> */}
+
         <Routes>
-          <Route path="/" element={<Navigate to="/Profile" replace />} /> 
+          {/* <Route path="/" element={<Navigate to="/Home" replace />} />  */}
+          <Route path="/" element={<AssembledHomePage />} /> 
           <Route path="/SignIn" element={<SignIn />} />
           <Route path="/SignUp" element={<SignUp />} />
           <Route path="/Home" element={<AssembledHomePage />} />
           <Route path="/Profile" element={<BasicPage />} />
           <Route path="/Gallery" element={<ImageGallery />} />
           <Route path="/test" element={<BlogEditor />} />
+          <Route path="/test2" element={<Demo2 />} />
+          <Route path="/BlogPost" element={<BlogPostForm />} />
+          <Route path="/blogShow" element={<PostShow />} />
+          <Route path="/blogPostDetail/:id" element={<PostDetail />} />
 
           
         </Routes>
