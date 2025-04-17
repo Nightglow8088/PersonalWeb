@@ -8,10 +8,11 @@ import AssembledHomePage from './homePage/AssembledHomePage.js';
 import BasicPage from './Profile/ProfileBasicPage.js';
 import ImageGallery from './ImageGallery/ImageGallery.js';
 import BlogEditor from './blog/codeTemp/BlogEditor.js';
-import Demo2 from './blog/codeTemp/demo2.js';
+// import Demo2 from './blog/codeTemp/demo2.js';
 import BlogPostForm from './blog/post/PostSubmit.js';
 import PostShow from './blog/post/PostShow.js';
 import PostDetail from './blog/post/PostDetail.js';
+import BlogPostForm2 from './blog/post/PostSubmitV2.js';
 
 
 function App() {
@@ -28,12 +29,13 @@ function App() {
           <Route path="/Profile" element={<BasicPage />} />
           <Route path="/Gallery" element={<ImageGallery />} />
           <Route path="/test" element={<BlogEditor />} />
-          <Route path="/test2" element={<Demo2 />} />
+          {/* <Route path="/test2" element={<Demo2 />} /> */}
           <Route path="/BlogPost" element={<BlogPostForm />} />
           <Route path="/blogShow" element={<PostShow />} />
           <Route path="/blogPostDetail/:id" element={<PostDetail />} />
 
           
+
         </Routes>
       </div>
     </Router>

@@ -8,7 +8,6 @@ import React, { useState, useEffect } from 'react';
 import "./ImageGallery.css";
 import Header from '../homePage/headerPage/Header';
 
-
 export default function ImageGallery() {
   const [images, setImages] = useState([]);
 
