@@ -10,5 +10,7 @@ public interface UserMailAccountService {
 
     public void save(UserMailAccount userMailAccount);
 
+    // 新增：检查邮箱是否已激活
+    boolean isEnabled(String mailAccount);
 
 }

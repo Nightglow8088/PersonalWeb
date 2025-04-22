@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 
 @Repository
 public interface UserAccountRepository extends JpaRepository<Users, Long> {
@@ -23,7 +25,11 @@ public interface UserAccountRepository extends JpaRepository<Users, Long> {
             "ba.password =:password and " +
             "us.enabled", nativeQuery = true)
 
-    Users findByMailAddress(@Param("email") String email, @Param("password") String password);
+    Users mailPwdMatcher(@Param("email") String email, @Param("password") String password);
+
+
+    Optional<Users> findByMailAddress(String mailAddress);
+
 
 
 }

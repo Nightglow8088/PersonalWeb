@@ -1,31 +1,34 @@
-# 第一阶段：构建
-# 使用node镜像作为基础镜像进行构建
-FROM node:16-alpine as build
+# -----------------------------------
+# 1) Build 阶段：用 Node 去跑 npm run build
+# -----------------------------------
+    FROM node:16-alpine AS build
 
-# 设置工作目录
-WORKDIR /app
-
-# 复制package.json和package-lock.json文件
-COPY package.json package-lock.json ./
-
-# 安装依赖
-RUN npm install
-
-# 复制剩余的源代码
-COPY . .
-
-# 构建应用
-RUN npm run build
-
-# 第二阶段：部署
-# 使用nginx作为服务器，提供React构建的静态文件
-FROM nginx:alpine
-
-# 从构建阶段复制构建好的文件到nginx目录
-COPY --from=build /app/build /usr/share/nginx/html
-
-# 暴露80端口
-EXPOSE 80
-
-# 当容器启动时运行nginx
-CMD ["nginx", "-g", "daemon off;"]
+    WORKDIR /app
+    
+    # 先拷贝 package.json / lockfile，并安装依赖
+    COPY package.json package-lock.json ./
+    RUN npm ci
+    
+    # 构建时注入前端环境变量
+    ARG REACT_APP_DIGIT_OCEAN_API_URL=''
+    ENV REACT_APP_DIGIT_OCEAN_API_URL=${REACT_APP_DIGIT_OCEAN_API_URL}
+    
+    # 再把源代码拷进来，执行打包
+    COPY . .
+    RUN npm run build
+    
+    # -----------------------------------
+    # 2) 运行阶段：用 nginx 提供静态文件
+    # -----------------------------------
+    FROM nginx:alpine
+    
+    # 删除默认配置，拷贝生产专用的 nginx.conf
+    RUN rm /etc/nginx/conf.d/default.conf
+    COPY nginx.prod.conf /etc/nginx/conf.d/
+    
+    # 把 build 出来的静态文件复制进去
+    COPY --from=build /app/build /usr/share/nginx/html
+    
+    EXPOSE 80
+    CMD ["nginx", "-g", "daemon off;"]
+    

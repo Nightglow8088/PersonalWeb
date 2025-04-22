@@ -18,6 +18,9 @@ import Header from '../../homePage/headerPage/Header';
 import './NewBody.css'; 
 
 //这个就是home page的东西
+const API_BASE = process.env.REACT_APP_API_BASE || '';  
+// 本地开发：REACT_APP_API_BASE=http://localhost:8080
+// 线上部署时.env里不赋值，API_BASE 就是 ''
 
 const NewBody = () => {
   const [posts, setPosts] = useState([]);
@@ -27,11 +30,14 @@ const NewBody = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_DIGIT_OCEAN_API_URL}/BlogController/showAllDetails`
-        );
+        const url = `${API_BASE}/api/BlogController/showAllDetails`;
+        const response = await axios.get(url, {
+          headers: { 'Content-Type': 'application/json' },
+          // 如果需要带 JWT Cookie，请取消下面一行注释
+          // withCredentials: true,
+        });
         const { success, data, message } = response.data;
-        if (success && data) {
+        if (success) {
           setPosts(data);
         } else {
           console.error('Failed to fetch posts:', message);

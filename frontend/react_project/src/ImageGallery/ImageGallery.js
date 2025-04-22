@@ -10,9 +10,9 @@ import Header from '../homePage/headerPage/Header';
 
 export default function ImageGallery() {
   const [images, setImages] = useState([]);
-
+  // api修改
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_DIGIT_OCEAN_API_URL}/ImagesController/showAll`)
+    fetch(`${process.env.REACT_APP_DIGIT_OCEAN_API_URL}/api/ImagesController/showAll`)
       .then(response => response.json())
       .then(data => {
         console.log('API Data:', data); // 打印从API获取的数据
@@ -33,7 +33,6 @@ export default function ImageGallery() {
   return (
     <div className='gradient-custom-2'>
       <Header/>
-
       <MDBContainer className='mt-5 '>
         <MDBRow className=''>
           {images.map((image, index) => (

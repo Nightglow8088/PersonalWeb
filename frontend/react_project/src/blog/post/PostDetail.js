@@ -25,8 +25,9 @@ const BlogPostDetails = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
+        //api修改
         const { data } = await axios.get(
-          `${process.env.REACT_APP_DIGIT_OCEAN_API_URL}/BlogController/getPostDetails/${id}`
+          `${process.env.REACT_APP_DIGIT_OCEAN_API_URL}/api/BlogController/getPostDetails/${id}`
         );
         if (data.success) {
           setPost(data.data);

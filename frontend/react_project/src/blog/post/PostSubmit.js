@@ -30,8 +30,8 @@ const StyledContainer = styled.div`
   }
 `;
 
-// 后端 API 常量
-const API = `${process.env.REACT_APP_DIGIT_OCEAN_API_URL}/BlogController`;
+// 后端 API 常量  api修改
+const API = `${process.env.REACT_APP_DIGIT_OCEAN_API_URL}/api/BlogController`;
 const ENDPOINTS = {
   GET_ALL_TAGS: `${API}/getAllTags`,
   CREATE_TAGS:  `${API}/createTags`,

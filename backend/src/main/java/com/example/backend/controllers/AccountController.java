@@ -12,21 +12,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/AccountController")
+@RequestMapping("/api/AccountController")
 //@RequestMapping("/api/auth")
 
 public class AccountController {
 
     private final UserAccountService userService;
 
-//    private final UserMailAccountService userMailAccountService;
-
-
 
     @Autowired
     public AccountController(UserAccountService userService) {
         this.userService = userService;
-//        this.userMailAccountService = userMailAccountService;
     }
 
 

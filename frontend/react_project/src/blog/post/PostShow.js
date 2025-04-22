@@ -27,13 +27,24 @@ const StyledContainer = styled.div`
   }
 `;
 
+const API_BASE = process.env.REACT_APP_API_BASE || '';  // 本地开发时 http://localhost:8080，线上 "" 
+
 const PostShow = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/BlogController/showAllDetails');
+        //api修改
+        // 1) 拼出完整 URL：本地开发会是 http://localhost:8080/api/BlogController/showAllDetails
+        //    线上 API_BASE 为空，URL 就是 /api/BlogController/showAllDetails，由 nginx 反代
+        const url = `${API_BASE}/api/BlogController/showAllDetails`;
+
+        const response = await axios.get(url, {
+          headers: { 'Content-Type': 'application/json' },
+          withCredentials: true, // 如果后端需要 JWT Cookie 或者 session
+        });
+
         if (response.data.success) {
           setPosts(response.data.data);
         } else {

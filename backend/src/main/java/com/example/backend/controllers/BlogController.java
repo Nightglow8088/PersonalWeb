@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/BlogController")
+@RequestMapping("/api/BlogController")
 public class BlogController {
     private final BlogPostService blogPostService;
 
@@ -93,7 +93,9 @@ public class BlogController {
     @GetMapping("/getById/{id}")
     public ResponseEntity<Response<BlogPostDTO>> getById(@PathVariable Integer id) {
         BlogPostDTO dto = blogPostService.getById(id);
-        return ResponseEntity.ok(Response.ok(dto));    }
+        return ResponseEntity.ok(Response.ok(dto));
+    }
+
     /** 查询所有文章 **/
     @GetMapping("/getAll")
     public ResponseEntity<Response<List<BlogPostDTO>>> getAll() {

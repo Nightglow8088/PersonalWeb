@@ -3,6 +3,20 @@
 # DigitOcean
 ssh -i ~/.ssh/id_rsa_digitalocean root@147.182.199.216
 
+cd srv/blog
+./deploy.sh
+
+npm run build     
+docker build -t kevinb8080/blog-frontend:latest .
+docker push kevinb8080/blog-frontend:latest 
+
+maven->lifecycle->package
+docker build -t kevinb8080/blog-backend:latest .  
+docker push kevinb8080/blog-backend:latest 
+
+
+
+
 # Docker更新
 如果你本地开发和测试使用的是没有用户名前缀的镜像（如 frontend_react:latest），而你推送到 Docker Hub 的镜像使用的是带用户名前缀的（如 kevinb8080/frontend_react:latest），这两者其实是独立的镜像。这种情况下，你可能希望保持两个镜像版本的同步更新，特别是在本地测试通过后。
 

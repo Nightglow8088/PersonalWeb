@@ -20,5 +20,8 @@ public class Users {
     @Column(name = "mail_address")
     private String mailAddress;
 
+    @Enumerated(EnumType.STRING)
+    private AuthProvider authProvider;   // 新增枚举字段
+
 
 }

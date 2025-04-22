@@ -25,8 +25,8 @@ const Header = () => {
         <Link component={RouterLink} to="/BlogPost" color="inherit" sx={{ textDecoration: 'none', margin: '0 10px', '&:hover': { color: '#000000' } }}>
           Blog
         </Link>
-        <Link component={RouterLink} to="/SignUp" color="inherit" sx={{ textDecoration: 'none', margin: '0 10px', '&:hover': { color: '#000000' } }}>
-          Contact
+        <Link component={RouterLink} to="/SignIn" color="inherit" sx={{ textDecoration: 'none', margin: '0 10px', '&:hover': { color: '#000000' } }}>
+          SignIn
         </Link>
 
       </Toolbar>

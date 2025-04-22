@@ -16,23 +16,52 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-  mail:
-    host: smtp.office365.com
-    port: 587
-    username: mn961132@outlook.com
-    password: Aa35636752*
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
+#    旧时代的残党 byd不提供服务了草
+#  mail:、
+#    host: smtp.office365.com
+#    port: 587
+#    username: mn961132@outlook.com
+#    password: Aa35636752*
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          starttls:
+#            enable: true
+  # —— 新增：Spring Security OAuth2 Client 配置 ——
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 200707469256-17b48b5ab71al44godi8smvac9qhsa8o.apps.googleusercontent.com
+            client-secret: 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
+            client-name: Google
+            # Spring Boot 默认的重定向 URI 模板，无需额外 controller
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope:
+              - openid
+              - profile
+              - email
+        provider:
+          google:
+            issuer-uri: https://accounts.google.com
 
+gmail:
+  client-id: 200707469256-17b48b5ab71al44godi8smvac9qhsa8o.apps.googleusercontent.com
+  client-secret: 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
+  refresh-token: 1//06N8JnGgHk7aDCgYIARAAGAYSNgF-L9IrG4vFTQLbZBnyxxzuzQol_m1BunJyv2o3sCmvWdeD5MB_7WakgTewjtgC6YyEFJ4ooA
+  user-email: mbo@usc.edu
 
-
+app:
+  base-url: ${:http://localhost:8080}
 
 jwt:
   secret: r6LZkm4iTlmgEPCjtT0ocMHIi5OeDPG5mE9Gp+uZ9O0J6RFKXtB2x7H8hdnYWUPsk5BxPqCvP0b9R1cOP0kW+A==
   expiration: 86400000 # 1 day in milliseconds
+
+
+
+
 
 

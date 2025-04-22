@@ -1,184 +1,194 @@
+// src/components/SignIn.jsx
+
 import * as React from 'react';
 import { useState } from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
+import {
+  Avatar,
+  Button,
+  CssBaseline,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Link,
+  Grid,
+  Box,
+  Typography,
+  Container
+} from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
+import Header from '../homePage/headerPage/Header';
 
+const theme = createTheme();
+ // 如果没有读到 env，就让它变成空串，fetch('/api/...') 就是相对路径
+const API_BASE = process.env.REACT_APP_DIGIT_OCEAN_API_URL || '';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-// TODO remove, this demo shouldn't need to reset the theme.
-
-const defaultTheme = createTheme();
 
 export default function SignIn() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
+
+  // —— 表单状态 ——  
+  const [email, setEmail]           = useState('');
+  const [password, setPassword]     = useState('');
   const [emailError, setEmailError] = useState('');
-  
-  const handleEmailChange = (event) => {
-    const value = event.target.value;
-    setEmail(value);
-    
+  const [submitError, setSubmitError] = useState(''); // 【修改①】新增 submitError 状态
+
+  // 验证邮箱格式
+  const handleEmailChange = (e) => {
+    const v = e.target.value;
+    setEmail(v);
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(value)) {
-      setEmailError('Invalid email address.');
-    } else {
-      setEmailError('');
-    }
+    setEmailError(emailRegex.test(v) ? '' : 'Invalid email address');
   };
 
-  //点击sign in
+  // 普通登录提交
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const password = data.get('password');
-    const email = data.get('email');
+    setSubmitError(''); // 【修改②】每次提交前清空上次的错误
 
     if (!email || !password) {
-      alert('All fields are required. 请输入全部信息');
+      setSubmitError('邮箱和密码都不能为空');
       return;
     }
-
-    // Check if email format is correct
     if (emailError) {
-      alert('Invalid email address.邮箱格式不对');
+      setSubmitError('邮箱格式不正确');
       return;
     }
 
-    
-    const bodyJSON = {
-      password: password,
-      mailAddress: email
-  };
-
-                         
-  // const url = `${process.env.REACT_BACKEND_URL}/api/auth/register`
-  let url = `${process.env.REACT_APP_BACKEND_URL}/api/auth/login`;
-
-  console.log("url: "+url)
-
-  try {
-      const response = await fetch(url, {
+    try {
+      const res = await fetch(`${API_BASE}/api/auth/login`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(bodyJSON) // Use the correct JSON body
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mailAddress: email, password }),
       });
 
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status}`);
+      const json = await res.json(); // 【修改③】先解析 JSON
+
+      if (!res.ok || !json.success) {
+        // —— 【修改④】优先显示后端放在 data 里的自定义错误信息 ——  
+        const errorMsg = json.data || json.message || `登录失败 (状态 ${res.status})`;
+        throw new Error(errorMsg);
       }
 
-      const result = await response.json();
-      console.log('Success:', result);
-  } 
-  catch (error) {
-      console.error('Error:', error);
-  }
+      // 登录成功，存 JWT 并跳转
+      localStorage.setItem('jwt', json.data);
+      navigate('/home');
+    } catch (err) {
+      console.error('Login error:', err);
+      setSubmitError(err.message || '登录失败'); // 【修改⑤】用 err.message 渲染到页面
+    }
+  };
 
-  navigate('/register');
-
-
-
-
-
+  // Google OAuth2 登录
+  const handleGoogleLogin = () => {
+    window.location.href = `${API_BASE}/oauth2/authorization/google`;
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              value={email}
-              onChange={handleEmailChange}
-              error={!!emailError}
-              helperText={emailError}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
+    <>
+      <Header />
+      <ThemeProvider theme={theme}>
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <Box
+            sx={{
+              mt: 8,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign in
+            </Typography>
+
+            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                value={email}
+                onChange={handleEmailChange}
+                error={!!emailError}
+                helperText={emailError}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+
+              {/* 普通登录按钮 */}
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 1 }}
+              >
+                Sign In
+              </Button>
+
+              {/* Google 登录按钮 */}
+              <Button
+                fullWidth
+                variant="outlined"
+                onClick={handleGoogleLogin}
+                sx={{ mb: 2 }}
+              >
+                Sign In with Google
+              </Button>
+
+              {/* —— 错误消息展示 —— */}
+              {submitError && (
+                <Typography color="error" sx={{ mt: 1 }}>
+                  {submitError}
+                </Typography>
+              )}
+
+              <Grid container sx={{ mt: 2 }}>
+                <Grid item xs>
+                  <Link href="#" variant="body2">
+                    Forgot password?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link href="/SignUp" variant="body2">
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
               </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
+            </Box>
           </Box>
-        </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
-      </Container>
-    </ThemeProvider>
+
+          <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 8, mb: 4 }}>
+            {'Copyright © '}
+            <Link color="inherit" href="https://mui.com/">
+              Your Website
+            </Link>{' '}
+            {new Date().getFullYear()}.
+          </Typography>
+        </Container>
+      </ThemeProvider>
+    </>
   );
 }
