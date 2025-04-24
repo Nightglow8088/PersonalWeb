@@ -1,0 +1,65 @@
+# ======================
+# 通用
+# ======================
+# macOS
+.DS_Store
+# Windows
+Thumbs.db
+
+# 日志
+*.log
+
+# IDE/编辑器
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+
+# 操作系统临时文件
+*.swp
+*~
+# ======================
+# 环境变量
+# ======================
+# 根目录下的 .env
+.env
+# 各子模块里可能的 .env/local
+**/.env
+**/*.env.local
+
+# ======================
+# 前端 (React / Node.js)
+# ======================
+# 忽略依赖和编译产物
+**/node_modules/
+frontend/node_modules/
+frontend/build/
+# 额外可能的输出目录
+frontend/dist/
+
+# ======================
+# 后端 (Spring Boot / Maven)
+# ======================
+# Maven target 目录
+**/target/
+backend/target/
+!**/src/**/target/  # 保留源码目录自身
+# Maven wrapper JAR
+**/mvnw*
+# 忽略你用来存放密钥或凭证的文件
+backend/.env
+backend/src/main/resources/credentials.json
+
+# ======================
+# Docker
+# ======================
+# Compose 环境文件
+docker-compose.override.yml
+.env.*
+
+# ======================
+# 其他
+# ======================
+# 如果你有生成的 key/truststore、keystore
+**/*.jks

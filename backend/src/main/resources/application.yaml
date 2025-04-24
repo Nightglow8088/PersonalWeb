@@ -7,6 +7,8 @@ spring:
     username: Nightglow
     password: Aa35636752*
     driver-class-name: org.postgresql.Driver
+  config:
+    import: optional:dotenv
   jpa:
     properties:
       hibernate:
@@ -34,8 +36,8 @@ spring:
       client:
         registration:
           google:
-            client-id: ${GOOGLE_CLIENT_ID}
-            client-secret: ${GOOGLE_CLIENT_SECRET}
+            client-id: ${GOOGLE_CLIENT_ID:dummy-client-id}
+            client-secret: ${GOOGLE_CLIENT_SECRET:dummy-secret}
             client-name: Google
             # Spring Boot 默认的重定向 URI 模板，无需额外 controller
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
@@ -48,9 +50,9 @@ spring:
             issuer-uri: https://accounts.google.com
 
 gmail:
-  client-id: ${GOOGLE_CLIENT_ID:}
-  client-secret: ${GOOGLE_CLIENT_SECRET:}
-  refresh-token: 1//06N8JnGgHk7aDCgYIARAAGAYSNgF-L9IrG4vFTQLbZBnyxxzuzQol_m1BunJyv2o3sCmvWdeD5MB_7WakgTewjtgC6YyEFJ4ooA
+  client-id: ${GOOGLE_CLIENT_ID:dummy-client-id}
+  client-secret: ${GOOGLE_CLIENT_SECRET:dummy-secret}
+  refresh-token: ${GOOGLE_GMAIL_REFRESH_TOKEN:dummy-refresh-token}
   user-email: mbo@usc.edu
 
 app:
