@@ -23,7 +23,7 @@
 
 
 // // 后端 API 基础路径
-// const API = `${process.env.REACT_APP_DIGIT_OCEAN_API_URL}/BlogController`;
+// const API = `${process.env.REACT_APP_API_BASE}/BlogController`;
 
 // // 所有接口常量
 // const ENDPOINTS = {

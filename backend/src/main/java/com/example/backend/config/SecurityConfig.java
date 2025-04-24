@@ -43,45 +43,6 @@ public class SecurityConfig  {
         this.oauth2LoginSuccessHandler=oauth2LoginSuccessHandler;
     }
 
-//
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http
-//            .authorizeHttpRequests(authorizeRequests ->
-//                    authorizeRequests
-//                            .requestMatchers("/","/BlogController/**","/ImagesController/**",
-//                                            "/home","/api/auth/login",  "/api/auth/register","/api/auth/verify",
-//                                            "/oauth2/**", "/login/oauth2/**").permitAll()
-//                            .anyRequest().authenticated()
-//            )
-////                .formLogin(formLogin ->
-////                        formLogin
-////                                .loginPage("/login")
-////                                .permitAll()
-////                )
-//            .formLogin(formLogin -> formLogin.disable()) // 禁用默认的表单登录配置
-//            .logout(logout ->
-//                    logout.permitAll()
-//            )
-//            .exceptionHandling(exceptionHandling ->
-//                    exceptionHandling
-//                            .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-//                            .accessDeniedHandler(customAccessDeniedHandler)
-//            )
-//            .sessionManagement(sessionManagement ->
-//                    sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//            )
-//            .csrf(csrf -> csrf.disable());
-//
-//
-//
-//        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-//
-//        // 允许 H2 控制台
-//        http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()));
-//
-//        return http.build();
-//    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -110,8 +71,8 @@ public class SecurityConfig  {
                             "/", "/home",
                             // —— 放行前端会访问的 Controller ——
                             // 旧的无前缀端点，如果你还保留测试用可以同时放
-                            "/BlogController/**",
-                            "/ImagesController/**",
+//                            "/BlogController/**",
+//                            "/ImagesController/**",
 
                             // 新增：带 /api 前缀后的真正生产路径
                             "/api/BlogController/**",
@@ -161,7 +122,10 @@ public class SecurityConfig  {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration cfg = new CorsConfiguration();
         // adjust these origins to match your frontend
-        cfg.setAllowedOrigins(List.of("https://kevinb.website", "https://www.kevinb.website"));
+        cfg.setAllowedOrigins(List.of("https://kevinb.website",
+                                        "https://www.kevinb.website",
+                                        "http://localhost:3000"
+        ));
         cfg.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         cfg.setAllowedHeaders(List.of("*"));
         cfg.setAllowCredentials(true);

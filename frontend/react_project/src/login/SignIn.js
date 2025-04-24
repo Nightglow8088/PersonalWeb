@@ -22,7 +22,7 @@ import Header from '../homePage/headerPage/Header';
 
 const theme = createTheme();
  // 如果没有读到 env，就让它变成空串，fetch('/api/...') 就是相对路径
-const API_BASE = process.env.REACT_APP_DIGIT_OCEAN_API_URL || '';
+const API_BASE = process.env.REACT_APP_API_BASE || '';
 
 
 export default function SignIn() {

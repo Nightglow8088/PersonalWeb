@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm     from 'remark-gfm';
+import remarkBreaks from 'remark-breaks'; 
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { materialDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import axios from 'axios';
@@ -31,7 +33,7 @@ const StyledContainer = styled.div`
 `;
 
 // 后端 API 常量  api修改
-const API = `${process.env.REACT_APP_DIGIT_OCEAN_API_URL}/api/BlogController`;
+const API = `${process.env.REACT_APP_API_BASE}/api/BlogController`;
 const ENDPOINTS = {
   GET_ALL_TAGS: `${API}/getAllTags`,
   CREATE_TAGS:  `${API}/createTags`,
@@ -232,6 +234,7 @@ const BlogPostForm = () => {
           {/* Markdown 预览 */}
           <ReactMarkdown
             children={input}
+            remarkPlugins={[remarkGfm, remarkBreaks]}   // ← 支持 GFM + 单回车换行
             components={{
               code({ inline, className, children, ...props }) {
                 const match = /language-(\w+)/.exec(className || '');

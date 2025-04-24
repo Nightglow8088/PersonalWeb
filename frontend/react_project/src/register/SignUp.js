@@ -80,8 +80,8 @@ export default function SignUp() {
     };
 
                            
-    // const url = `${process.env.REACT_BACKEND_URL}/api/auth/register`
-    let url = `${process.env.REACT_APP_DIGIT_OCEAN_API_URL}/api/auth/register`;
+    // const url = `${process.env.REACT_APP_API_BASE}/api/auth/register`
+    let url = `${process.env.REACT_APP_API_BASE}/api/auth/register`;
 
     console.log("url: "+url)
 

@@ -1,5 +1,3 @@
-// src/components/BlogPostDetails.jsx
-
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -8,32 +6,27 @@ import {
   Container,
   Box,
   Paper,
-  Chip,              // 新增：用于显示标签
+  Chip,
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { materialDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import Header from '../../homePage/headerPage/Header';
 
-// 这个是post的detail界面
-
 const BlogPostDetails = () => {
   const { id } = useParams();
   const [post, setPost] = useState(null);
-  const backgroundImageUrl = '/Background/fireflyOfficial.avif'; //背景图片
+  const theme = useTheme();
+  const backgroundImageUrl = '/Background/fireflyOfficial.avif';
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        //api修改
         const { data } = await axios.get(
-          `${process.env.REACT_APP_DIGIT_OCEAN_API_URL}/api/BlogController/getPostDetails/${id}`
+          `${process.env.REACT_APP_API_BASE}/api/BlogController/getPostDetails/${id}`
         );
-        if (data.success) {
-          setPost(data.data);
-        } else {
-          console.error('Failed to fetch post details:', data.message);
-        }
+        if (data.success) setPost(data.data);
       } catch (error) {
         console.error('Error fetching post details:', error);
       }
@@ -45,25 +38,32 @@ const BlogPostDetails = () => {
 
   return (
     <>
-      <Header />
+       <Header />
+      {/* 下面这个 Box 保证至少撑满整个视口（减去 AppBar 高度），
+          内容多时自然会更高 */}
       <Box
         sx={{
+          // 最小高度：100vh - AppBar 高度
+          minHeight: {
+            xs: `calc(100vh - ${theme.mixins.toolbar.minHeight}px)`,
+            // 如果你在移动端 AppBar 高度不是 theme.mixins.toolbar.minHeight
+            // 也可以写成固定 56px
+            // xs: 'calc(100vh - 56px)'
+          },
+          pt: { xs: 4, sm: 6 },
+          pb: 4,
           width: '100%',
-          minHeight: '100vh',
           backgroundImage: `url(${backgroundImageUrl})`,
           backgroundSize: 'cover',
           backgroundAttachment: 'fixed',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
         }}
       >
-        <Container
-          maxWidth="md"
-          component={Paper}
-          elevation={3}
-          sx={{ p: 4, bgcolor: 'rgba(255, 255, 255, 0.9)', borderRadius: '16px' }}
-        >
+      <Container
+        maxWidth="md"
+        component={Paper}
+        elevation={3}
+        sx={{ p: 4, bgcolor: 'rgba(255,255,255,0.9)', borderRadius: '16px' }}
+      >
           <Typography variant="h4" gutterBottom>
             {post.title}
           </Typography>
@@ -71,15 +71,17 @@ const BlogPostDetails = () => {
             {post.summary}
           </Typography>
 
-          {/* —— 新增：显示文章的标签 —— */}
-          {post.tags && post.tags.length > 0 && (
+          {post.tags?.length > 0 && (
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 2 }}>
-              {post.tags.map(tag => (
+              {post.tags.map((tag) => (
                 <Chip
                   key={tag.id}
                   label={tag.name}
                   size="small"
-                  sx={{ bgcolor: 'primary.light', color: 'primary.contrastText' }}
+                  sx={{
+                    bgcolor: 'primary.light',
+                    color: 'primary.contrastText',
+                  }}
                 />
               ))}
             </Box>
@@ -102,7 +104,11 @@ const BlogPostDetails = () => {
                 ) : (
                   <Typography
                     component="code"
-                    sx={{ bgcolor: 'grey.900', color: 'primary.contrastText', p: 0.5 }}
+                    sx={{
+                      bgcolor: 'grey.900',
+                      color: 'primary.contrastText',
+                      p: 0.5,
+                    }}
                   >
                     {children}
                   </Typography>

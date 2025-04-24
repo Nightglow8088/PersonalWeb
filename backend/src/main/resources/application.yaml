@@ -34,8 +34,8 @@ spring:
       client:
         registration:
           google:
-            client-id: 200707469256-17b48b5ab71al44godi8smvac9qhsa8o.apps.googleusercontent.com
-            client-secret: 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
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
             client-name: Google
             # Spring Boot 默认的重定向 URI 模板，无需额外 controller
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
@@ -48,8 +48,8 @@ spring:
             issuer-uri: https://accounts.google.com
 
 gmail:
-  client-id: 200707469256-17b48b5ab71al44godi8smvac9qhsa8o.apps.googleusercontent.com
-  client-secret: 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
+  client-id: ${GOOGLE_CLIENT_ID:}
+  client-secret: ${GOOGLE_CLIENT_SECRET:}
   refresh-token: 1//06N8JnGgHk7aDCgYIARAAGAYSNgF-L9IrG4vFTQLbZBnyxxzuzQol_m1BunJyv2o3sCmvWdeD5MB_7WakgTewjtgC6YyEFJ4ooA
   user-email: mbo@usc.edu
 

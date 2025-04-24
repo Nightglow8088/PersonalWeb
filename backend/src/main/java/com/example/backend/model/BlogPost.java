@@ -16,7 +16,8 @@ public class BlogPost {
 
     private String title;
 
-    @Column(name = "body_text")
+    // 把 bodyText 改成 TEXT
+    @Column(name = "body_text", columnDefinition = "TEXT")
     private String bodyText;
 
     @Column(name = "poster_id")
