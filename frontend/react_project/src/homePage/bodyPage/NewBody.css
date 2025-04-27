@@ -8,3 +8,26 @@
     text-align: center; /* 使文本居中 */
     color: black;
 }
+/* 
+.scroll-hint-arrow {
+    color: rgba(255,255,255,0.7);
+    animation: bounce 2s infinite;
+  }
+  
+  @keyframes bounce {
+    0%,100%   { transform: translate(-50%,   0); }
+    50%       { transform: translate(-50%,  10px); }
+  }
+   */
+
+   /* NewBody.css */
+.scroll-hint-arrow {
+    color: rgba(255,255,255,0.7);
+    animation: bounce 2s infinite;
+  }
+  
+  @keyframes bounce {
+    0%,100%   { transform: translate(-50%,   0); }
+    50%       { transform: translate(-50%,  10px); }
+  }
+  

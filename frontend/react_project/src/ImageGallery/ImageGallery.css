@@ -1,0 +1,51 @@
+/* 背景渐变 */
+.gallery-page {
+    background: linear-gradient(135deg, #f8accf 0%, #cdc6f4 100%);
+    min-height: 100vh;
+  }
+  
+  /* 限制宽度并居中 */
+  .gallery-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 16px;
+  }
+  
+  /* Masonry 容器 */
+  .masonry-grid {
+    display: flex;
+    justify-content: center; /* 水平居中所有列 */
+    gap: 16px;               /* 列间距 */
+  }
+  
+    /* 让每列变成 flex 容器，卡片间自动留出竖直间距 */
+    .masonry-column {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;   /* 控制卡片之间的垂直间距 */
+        background-clip: padding-box;
+    }
+  
+  /* 每个卡片 */
+  .image-card {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  /* 图片自适应 */
+  .image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  
+  /* 文字说明 */
+  .caption {
+    padding: 12px;
+    font-size: 0.95rem;
+    color: #333;
+    line-height: 1.4;
+  }
+  

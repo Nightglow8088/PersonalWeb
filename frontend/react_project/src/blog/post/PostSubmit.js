@@ -179,14 +179,26 @@ const BlogPostForm = () => {
             value={summary}
             onChange={e => setSummary(e.target.value)}
           />
+
           <TextField
             label="Content"
-            multiline rows={10}
             variant="outlined"
             fullWidth
+            multiline
+            minRows={10}        // 最小 10 行
+            maxRows={30}        // 自动扩展到最多 30 行
             value={input}
             onChange={e => setInput(e.target.value)}
+            sx={{
+              // 让 textarea 可以被用户上下拖拽
+              '& textarea': {
+                resize: 'vertical',
+                overflow: 'auto',
+                maxHeight: '60vh', // 最大高度 60% 视窗，内容再多就滚动
+              },
+            }}
           />
+
 
           {/* 已有标签多选 */}
           <FormControl fullWidth sx={{ mb: 2 }}>

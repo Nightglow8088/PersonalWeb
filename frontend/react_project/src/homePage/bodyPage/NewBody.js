@@ -4,60 +4,50 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import {
+  Container,
+  Grid,
+  Box,
   Card,
   CardContent,
   Typography,
   CardActions,
   Button,
-  Container,
-  Grid,
-  Box,
-  Chip,          // 用于显示 Tag
+  Chip,
 } from '@mui/material';
-import Header from '../../homePage/headerPage/Header';
-import './NewBody.css'; 
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import './NewBody.css';
 
-//这个就是home page的东西
-const API_BASE = process.env.REACT_APP_API_BASE || '';  
-// 本地开发：REACT_APP_API_BASE=http://localhost:8080
-// 线上部署时.env里不赋值，API_BASE 就是 ''
+const API_BASE = process.env.REACT_APP_API_BASE || '';
 
-const NewBody = () => {
+export default function NewBody() {
   const [posts, setPosts] = useState([]);
-  const backgroundImageUrl = '/Background/fireflyOfficial.avif';
   const navigate = useNavigate();
+  const backgroundImageUrl = '/Background/fireflyOfficial.avif';
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const url = `${API_BASE}/api/BlogController/showAllDetails`;
-        const response = await axios.get(url, {
-          headers: { 'Content-Type': 'application/json' },
-          // 如果需要带 JWT Cookie，请取消下面一行注释
-          // withCredentials: true,
-        });
-        const { success, data, message } = response.data;
-        if (success) {
-          setPosts(data);
-        } else {
-          console.error('Failed to fetch posts:', message);
-        }
-      } catch (error) {
-        console.error('Error fetching posts:', error);
-      }
-    };
-    fetchPosts();
+    axios
+      .get(`${API_BASE}/api/BlogController/showAllDetails`)
+      .then(res => res.data.success && setPosts(res.data.data))
+      .catch(console.error);
   }, []);
 
   return (
-    <div>
+    <Box
+      sx={{
+        width: '100%',
+        minHeight: '100vh',            // 整个页面至少一屏高
+        backgroundImage: `url(${backgroundImageUrl})`,
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed', // 背景固定
+      }}
+    >
+      {/* Hero 区块 */}
       <Box
         sx={{
-          width: '100%',
-          minHeight: '100vh',
-          backgroundImage: `url(${backgroundImageUrl})`,
-          backgroundSize: 'cover',
-          backgroundAttachment: 'fixed',
+          height: '100vh',             // Hero 占一屏
+          position: 'relative',
         }}
       >
         <Typography
@@ -68,84 +58,111 @@ const NewBody = () => {
           Welcome to My Blog
         </Typography>
 
-        <Container sx={{ display: 'flex', justifyContent: 'space-between', pt: '60vh' }}>
-          <Grid container spacing={2} sx={{ width: '70%' }}>
-            {posts.map(post => (
-              <Grid item xs={12} md={12} key={post.id}>
-                <Card raised sx={{ bgcolor: 'rgba(255, 255, 255, 0.8)' }}>
-                  <CardContent>
-                    <Typography variant="h5" align="center">
-                      {post.title}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      align="center"
-                      sx={{ fontSize: '22px', mb: 2 }}
+        {/* 纯提示箭头，上移到底部上方 60px */}
+        <Box
+          className="scroll-hint-arrow"
+          sx={{
+            position: 'absolute',
+            bottom: 100,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            pointerEvents: 'none',
+          }}
+        >
+          <KeyboardArrowDownIcon sx={{ fontSize: 60 }} />
+        </Box>
+      </Box>
+
+      {/* Blog 区块 */}
+      <Container
+        maxWidth="lg"
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-start',
+          gap: { xs: 2, md: 4 },
+          py: 4,
+        }}
+      >
+        {/* 左侧文章列表 */}
+        <Grid container spacing={2} sx={{ width: '70%' }}>
+          {posts.map(post => (
+            <Grid item xs={12} key={post.id}>
+              <Card raised sx={{ bgcolor: 'rgba(255,255,255,0.8)' }}>
+                <CardContent>
+                  <Typography variant="h5" align="center">
+                    {post.title}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    align="center"
+                    sx={{ fontSize: '22px', mb: 2 }}
+                  >
+                    {post.summary}
+                  </Typography>
+                  {post.tags?.length > 0 && (
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        gap: 1,
+                        justifyContent: 'center',
+                        mb: 1,
+                      }}
                     >
-                      {post.summary}
-                    </Typography>
+                      {post.tags.map(tag => (
+                        <Chip
+                          key={tag.id}
+                          label={tag.name}
+                          size="small"
+                          sx={{
+                            bgcolor: 'primary.light',
+                            color: 'primary.contrastText',
+                          }}
+                        />
+                      ))}
+                    </Box>
+                  )}
+                </CardContent>
+                <CardActions sx={{ justifyContent: 'center' }}>
+                  <Button
+                    size="small"
+                    onClick={() => navigate(`/blogPostDetail/${post.id}`)}
+                  >
+                    Learn More
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
 
-                    {/* —— 新增：显示 Tags —— */}
-                    {post.tags && post.tags.length > 0 && (
-                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 1, justifyContent: 'center' }}>
-                        {post.tags.map(tag => (
-                          <Chip
-                            key={tag.id}
-                            label={tag.name}
-                            size="small"
-                            sx={{ bgcolor: 'primary.light', color: 'primary.contrastText' }}
-                          />
-                        ))}
-                      </Box>
-                    )}
-                  </CardContent>
-                  <CardActions sx={{ justifyContent: 'center' }}>
-                    <Button size="small" onClick={() => navigate(`/blogPostDetail/${post.id}`)}>
-                      Learn More
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-
+        {/* 右侧粘性侧栏 */}
+        <Grid item xs={12} md={4}>
           <Box
             sx={{
-              width: '25%',
               position: 'sticky',
-              top: '100px',
+              top: 16,
+              minWidth: { md: 300 },
+              width: '100%',
             }}
           >
-            {/* 个人简介卡片 */}
-            <Card sx={{ bgcolor: 'rgba(0, 0, 0, 0.5)', color: 'white', mb: 2, borderRadius: '16px' }}>
-              <CardContent>
-                <Typography variant="h6">小组件A</Typography>
-                <Typography>内容内容内容内容</Typography>
-              </CardContent>
+            <Card sx={{ mb: 2, p: 2, bgcolor: 'rgba(0,0,0,0.5)', color: 'white' }}>
+              <Typography variant="h6">小组件 A</Typography>
+              <Typography>这里是内容</Typography>
             </Card>
-
-            {/* 最近帖子卡片 */}
-            <Card sx={{ bgcolor: 'rgba(0, 0, 0, 0.5)', color: 'white', mb: 2, borderRadius: '16px' }}>
-              <CardContent>
-                <Typography variant="h6">帖子</Typography>
-                <Typography>Post 1</Typography>
-                <Typography>Post 2</Typography>
-              </CardContent>
+            <Card sx={{ mb: 2, p: 2, bgcolor: 'rgba(0,0,0,0.5)', color: 'white' }}>
+              <Typography variant="h6">最近帖子</Typography>
+              <Typography>Post 1</Typography>
+              <Typography>Post 2</Typography>
             </Card>
-
-            {/* 杂七杂八卡片 */}
-            <Card sx={{ bgcolor: 'rgba(0, 0, 0, 0.5)', color: 'white', borderRadius: '16px' }}>
-              <CardContent>
-                <Typography variant="h6">杂七杂八</Typography>
-                <Typography>内容内容内容内容</Typography>
-              </CardContent>
+            <Card sx={{ p: 2, bgcolor: 'rgba(0,0,0,0.5)', color: 'white' }}>
+              <Typography variant="h6">杂七杂八</Typography>
+              <Typography>一些其他内容</Typography>
             </Card>
           </Box>
-        </Container>
-      </Box>
-    </div>
+        </Grid>
+      </Container>
+    </Box>
   );
-};
-
-export default NewBody;
+}

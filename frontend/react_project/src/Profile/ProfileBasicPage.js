@@ -83,7 +83,7 @@ export default function BasicPage() {
                       <div className="card-body">
                         <div className="row">
                           <div className="col-md-6 d-flex align-items-center justify-content-center">
-                            <a href={ResumePDF} target="_blank" rel="noopener noreferrer" className="me-3">
+                            <a href='https://drive.google.com/file/d/1ADihMfSk2vKUEqfjp0lo6BqE6ffbJd7Z/view?usp=sharing' target="_blank" rel="noopener noreferrer" className="me-3">
                               <img src={PDFIcon} alt="PDF Icon" width="50" height="50" style={{ color: '#E02F2F', cursor: 'pointer' }} />
                             </a>
                           </div>
@@ -153,6 +153,24 @@ export default function BasicPage() {
                       <h5 className="card-header">Internship</h5>
                       <div className="card-body">
 
+
+                        {/* Myreaa兼职 */}
+                        <div className="card mb-3" >
+                          <div className="card-body">
+                            <h5 className="card-title"> Software Engineer</h5>
+                            <h6 className="card-subtitle mb-1 " style={{ color: '#000000', fontSize: '0.875rem' }} >Myreaa</h6>
+                            <h6 className="card-subtitle mb-1 text-muted" style={{ fontSize: '0.875rem' }}>Feb 2025 - Present</h6>
+                            <h6 className="card-subtitle mb-1 text-muted" style={{ fontSize: '0.875rem' }}>Los Angeles, US · Remote</h6>
+
+                            <p className="card-text" style={{ lineHeight: '1.2' }}>
+                              Developed backend microservices for data ingestion, cleaning, and standardization, integrating machine learning models into an automated report-generation API.                            </p>
+
+                            <p className="card-text" style={{ lineHeight: '1.2' , fontWeight: 'bold' }}>
+                              Next.js, TypeScript, Supabase 
+                            </p>
+                          </div>
+                        </div>
+
                         {/* 通用实习 */}
                         <div className="card mb-3" >
                           <div className="card-body">
@@ -174,7 +192,7 @@ export default function BasicPage() {
                       {/* 创基实习 */}
                         <div className="card mb-3" >
                           <div className="card-body">
-                            <h5 className="card-title">Back End Developer</h5>
+                            <h5 className="card-title">Backend Developer</h5>
                             <h6 className="card-subtitle mb-1 " style={{ color: '#000000', fontSize: '0.875rem' }} >Trial Holdings Inc</h6>
                             <h6 className="card-subtitle mb-1 text-muted" style={{ fontSize: '0.875rem' }}>Jul 2023 - Dec 2023 · 6 mos</h6>
                             <h6 className="card-subtitle mb-1 text-muted" style={{ fontSize: '0.875rem' }}>Shandong, China · On-site</h6>
@@ -343,6 +361,23 @@ export default function BasicPage() {
                                 </div>
                               </div>
                           </li>
+
+                          <li className="list-group-item px-3">
+                            <div className="row">
+                              <div className="col-md-6 d-flex align-items-center justify-content-center">
+                                <a href='https://www.hackerrank.com/certificates/02ca5d59db9d' target="_blank" rel="noopener noreferrer" className="me-3">
+                                  <img src={CertificateIcon} alt="PDF Icon" width="40" height="40" style={{ color: '#E02F2F', cursor: 'pointer' }} />
+                                </a>
+                              </div>
+                              <div className="col-md-6 d-flex align-items-center justify-content-center">
+                                <p className="card-text text-center">
+                                  Java 
+                                </p>
+                              </div>
+                            </div>
+                          </li>
+
+                          
                           <li className="list-group-item px-3">
                             <div className="row">
                               <div className="col-md-6 d-flex align-items-center justify-content-center">

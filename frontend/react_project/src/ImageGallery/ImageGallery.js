@@ -3,6 +3,9 @@ import {
   MDBCol,
   MDBRow,
 } from 'mdb-react-ui-kit';
+import Masonry from 'react-masonry-css';
+import "./ImageGallery.css";
+
 import React, { useState, useEffect } from 'react';
 
 import "./ImageGallery.css";
@@ -10,6 +13,15 @@ import Header from '../homePage/headerPage/Header';
 
 export default function ImageGallery() {
   const [images, setImages] = useState([]);
+
+  // 定义各断点下列数
+  const breakpointColumnsObj = {
+    default: 3,
+    992: 2,
+    576: 1
+  };
+
+
   // api修改
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_BASE}/api/ImagesController/showAll`)
@@ -31,27 +43,24 @@ export default function ImageGallery() {
 
 
   return (
-    <div className='gradient-custom-2'>
-      <Header/>
-      <MDBContainer className='mt-5 '>
-        <MDBRow className=''>
-          {images.map((image, index) => (
-            <MDBCol lg={4} className="mb-4" key={image.id}>
-              {/* md={6} sm={12} */}
-              <div className="card">
-                <img
-                  src={image.url} 
-                  alt={`Gallery photo ${image.name}`}
-                  className="card-img-top"
-                />
-                <div className="card-body">
-                  <p className="card-text">{image.review}</p>
-                </div>
-              </div>
-            </MDBCol>
+    <div className="gallery-page">
+      <Header />
+      <div className="gallery-container">
+        <Masonry
+          breakpointCols={breakpointColumnsObj}
+          className="masonry-grid"
+          columnClassName="masonry-column"
+        >
+          {images.map(image => (
+            <div className="image-card" key={image.id}>
+              <img src={image.url} alt={image.name} className="image" />
+              {image.review && (
+                <div className="caption">{image.review}</div>
+              )}
+            </div>
           ))}
-        </MDBRow>
-      </MDBContainer>
+        </Masonry>
+      </div>
     </div>
   );
 }
