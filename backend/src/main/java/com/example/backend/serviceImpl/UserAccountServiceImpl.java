@@ -65,23 +65,48 @@ public class UserAccountServiceImpl implements UserAccountService {
     }
 
     //必须尽快改掉
-    @Override
-    public UserDetails loadUserByUsername(String name){
-        List<Users> users = getAllUsers();
-        for (Users user : users) {
-            if (user.getName().equals(name) ) {
-                return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(), new ArrayList<>());
-            }
-        }
-//        return null;
-
-
-//        User user = userRepository.findByUsername(username);
-//        if (user == null) {
-            throw new UsernameNotFoundException("User not found with username: " + name);
+//    @Override
+//    public UserDetails loadUserByUsername(String name){
+//        List<Users> users = getAllUsers();
+//        for (Users user : users) {
+//            if (user.getName().equals(name) ) {
+//                return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(), new ArrayList<>());
+//            }
 //        }
-//        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), new ArrayList<>());
+////        return null;
+//
+//
+////        User user = userRepository.findByUsername(username);
+////        if (user == null) {
+//            throw new UsernameNotFoundException("User not found with username: " + name);
+////        }
+////        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), new ArrayList<>());
+//    }
+
+    /**
+     * Spring Security 调用：校验 JWT 或表单登录时，
+     * 传进来的是 username = mailAddress
+     */
+    @Override
+    public UserDetails loadUserByUsername(String mailAddress)
+            throws UsernameNotFoundException {
+        // 1) 按邮箱查用户
+        Users user = userRepository.findByMailAddress(mailAddress)
+                .orElseThrow(() ->
+                        new UsernameNotFoundException(
+                                "User not found with email: " + mailAddress
+                        )
+                );
+
+        // 2) 构造 Spring Security 的 UserDetails
+        return org.springframework.security.core.userdetails.User
+                .withUsername(user.getMailAddress())    // 一定要用 mailAddress
+                .password(user.getPassword())
+                .roles(user.getRole())                  // 或 authorities(...)
+                .build();
     }
+
+
 
     @Override
     @Transactional

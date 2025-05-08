@@ -11,7 +11,7 @@ import BlogEditor from './blog/codeTemp/BlogEditor.js';
 import BlogPostForm from './blog/post/PostSubmit.js';
 import PostShow from './blog/post/PostShow.js';
 import PostDetail from './blog/post/PostDetail.js';
-import BlogPostForm2 from './blog/post/PostSubmitV2.js';
+import OAuth2RedirectHandler from './login/OAuth2RedirectHandler.js';
 
 
 function App() {
@@ -32,6 +32,7 @@ function App() {
           <Route path="/BlogPost" element={<BlogPostForm />} />
           <Route path="/blogShow" element={<PostShow />} />
           <Route path="/blogPostDetail/:id" element={<PostDetail />} />
+          <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
         </Routes>
       </div>
     </Router>

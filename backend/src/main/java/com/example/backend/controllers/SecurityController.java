@@ -8,16 +8,16 @@ import com.example.backend.model.Users;
 import com.example.backend.response.Response;
 import com.example.backend.services.UserAccountService;
 import com.example.backend.services.UserMailAccountService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -158,15 +158,16 @@ public class SecurityController {
         }
     }
 
-    //之前的额refresh版本
-//    @PostMapping("/refresh")
-//    public ResponseEntity<?> refresh(@RequestBody String token) {
-//        try {
-//            String refreshedToken = jwtUtils.refreshJwtToken(token);
-//            return new ResponseEntity<>(Response.ok(refreshedToken), HttpStatus.OK);
-//        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid token");
-//        }
-//    }
+    /**
+     * 登出接口：清空 SecurityContext；前端也会清除本地 JWT
+     * POST /api/auth/logout
+     */
+    @PostMapping("/logout")
+    public ResponseEntity<Response<Void>> logout(HttpServletRequest req,
+                                                 HttpServletResponse res) {
+        // 清空 Spring Security 上下文
+        SecurityContextHolder.clearContext();
+        return ResponseEntity.ok(Response.ok());
+    }
 
 }

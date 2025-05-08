@@ -5,6 +5,7 @@ import com.example.backend.model.BlogPostDTO;
 import com.example.backend.model.BlogPostTag;
 import com.example.backend.repositories.BlogPostRepository;
 import com.example.backend.repositories.BlogPostTagRepository;
+import com.example.backend.repositories.UserAccountRepository;
 import com.example.backend.services.BlogPostService;
 import com.example.backend.tools.SnowflakeIdWorker;
 import jakarta.persistence.EntityNotFoundException;
@@ -25,14 +26,18 @@ public class BlogPostServiceImpl implements BlogPostService {
 
     private final BlogPostTagRepository blogPostTagRepository;
 
+    private final UserAccountRepository userAccountRepository;
+
+
     private final SnowflakeIdWorker idWorker;
 
 
     @Autowired
-    public BlogPostServiceImpl(BlogPostRepository blogPostRepository, SnowflakeIdWorker idWorker, BlogPostTagRepository blogPostTagRepository){
+    public BlogPostServiceImpl(BlogPostRepository blogPostRepository, SnowflakeIdWorker idWorker, BlogPostTagRepository blogPostTagRepository,UserAccountRepository userAccountRepository){
         this.blogPostRepository = blogPostRepository;
         this.blogPostTagRepository = blogPostTagRepository;
         this.idWorker = idWorker;
+        this.userAccountRepository =userAccountRepository;
     }
 
     @Override
@@ -47,9 +52,11 @@ public class BlogPostServiceImpl implements BlogPostService {
     }
 
     @Override
-    public BlogPost getPostDetails(Integer id){
-        return blogPostRepository.findById(Long.valueOf(id))
+    public BlogPostDTO getPostDetails(Integer id){
+        BlogPost posts =  blogPostRepository.findById(Long.valueOf(id))
                 .orElseThrow(() -> new RuntimeException("Post not found with id: " + id));
+
+        return toDto(posts);
     }
 
 //    @Override
@@ -146,13 +153,19 @@ public class BlogPostServiceImpl implements BlogPostService {
         post.setBodyText(dto.getBodyText());
         post.setPosterId(dto.getPosterId());
         post.setSummary(dto.getSummary());
-        // 关联标签
-        Optional.ofNullable(dto.getTagIds()).orElse(Set.of())
-                .forEach(tagId -> {
-                    BlogPostTag tag = blogPostTagRepository.findById(Long.valueOf(tagId))
-                            .orElseThrow(() -> new EntityNotFoundException("Tag " + tagId + " not found"));
+
+        // 把标签名关联到实体
+        Optional.ofNullable(dto.getTags()).orElse(Set.of())
+                .forEach(tagName -> {
+                    BlogPostTag tag = blogPostTagRepository
+                            .findByName(tagName)                      // 返回 Optional<BlogPostTag>
+                            .orElseGet(() -> {                        // 如果不存在就新建一个
+                                BlogPostTag t = new BlogPostTag(tagName);
+                                return blogPostTagRepository.save(t);
+                            });
                     post.addTag(tag);
                 });
+
         BlogPost saved = blogPostRepository.save(post);
         return toDto(saved);
     }
@@ -161,20 +174,26 @@ public class BlogPostServiceImpl implements BlogPostService {
     public BlogPostDTO update(Integer id, BlogPostDTO dto) {
         BlogPost post = blogPostRepository.findById(Long.valueOf(id))
                 .orElseThrow(() -> new EntityNotFoundException("Post " + id + " not found"));
+
         post.setTitle(dto.getTitle());
         post.setBodyText(dto.getBodyText());
-        post.setPosterId(dto.getPosterId());
         post.setSummary(dto.getSummary());
-        // 先清空旧关系
+
+        // 1) 清空旧标签
         new HashSet<>(post.getTags()).forEach(post::removeTag);
-        // 再设置新关系
-        Optional.ofNullable(dto.getTagIds()).orElse(Set.of())
-                .forEach(tagId -> {
-                    BlogPostTag tag = blogPostTagRepository.findById(Long.valueOf(tagId))
-                            .orElseThrow(() -> new EntityNotFoundException("Tag " + tagId + " not found"));
+
+        // 2) 按名称重新关联
+        Optional.ofNullable(dto.getTags()).orElse(Set.of())
+                .forEach(tagName -> {
+                    BlogPostTag tag = blogPostTagRepository
+                            .findByName(tagName)
+                            .orElseThrow(() ->
+                                    new EntityNotFoundException("Tag not found: " + tagName));
                     post.addTag(tag);
                 });
-        return toDto(blogPostRepository.save(post));
+
+        BlogPost updated = blogPostRepository.save(post);
+        return toDto(updated);
     }
 
     @Override
@@ -202,9 +221,16 @@ public class BlogPostServiceImpl implements BlogPostService {
         dto.setTitle(post.getTitle());
         dto.setBodyText(post.getBodyText());
         dto.setPosterId(post.getPosterId());
+
+        // ← 新增：查一次用户表，把名字塞进去
+        userAccountRepository
+                .findById(Long.valueOf(post.getPosterId()))
+                .ifPresent(u -> dto.setPosterName(u.getName()));
+
         dto.setSummary(post.getSummary());
-        dto.setTagIds(post.getTags().stream()
-                .map(BlogPostTag::getId).collect(Collectors.toSet()));
+        dto.setTags(post.getTags().stream()
+                .map(BlogPostTag::getName)
+                .collect(Collectors.toSet()));
         return dto;
     }
 

@@ -18,6 +18,8 @@ import {
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
+
 import Header from '../homePage/headerPage/Header';
 
 const theme = createTheme();
@@ -33,6 +35,8 @@ export default function SignIn() {
   const [password, setPassword]     = useState('');
   const [emailError, setEmailError] = useState('');
   const [submitError, setSubmitError] = useState(''); // 【修改①】新增 submitError 状态
+
+  const { login }            = useAuth();
 
   // 验证邮箱格式
   const handleEmailChange = (e) => {
@@ -71,8 +75,10 @@ export default function SignIn() {
         throw new Error(errorMsg);
       }
 
-      // 登录成功，存 JWT 并跳转
-      localStorage.setItem('jwt', json.data);
+      // // 登录成功，存 JWT 并跳转
+      // localStorage.setItem('jwt', json.data);
+     // 调用 login(token) 更新 Context，这样下面的 CommentsSection 才能拿到非 null 的 token
+      login(json.data);
       navigate('/home');
     } catch (err) {
       console.error('Login error:', err);
@@ -104,6 +110,15 @@ export default function SignIn() {
             </Avatar>
             <Typography component="h1" variant="h5">
               Sign in
+            </Typography>
+
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              align="center"
+              sx={{ mt: 1, mb: 2 }}
+            >
+              如果你不想注册，请使用默认账户 <strong>kkk@123.com</strong> 密码 <strong>123</strong> 登录
             </Typography>
 
             <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>

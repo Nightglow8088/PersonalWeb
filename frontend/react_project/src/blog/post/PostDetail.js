@@ -7,12 +7,17 @@ import {
   Box,
   Paper,
   Chip,
+  Divider,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { materialDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+
 import Header from '../../homePage/headerPage/Header';
+
+// ← 1. 引入评论区组件
+import CommentsSection from './comment/CommentsSection';
 
 const BlogPostDetails = () => {
   const { id } = useParams();
@@ -38,17 +43,11 @@ const BlogPostDetails = () => {
 
   return (
     <>
-       <Header />
-      {/* 下面这个 Box 保证至少撑满整个视口（减去 AppBar 高度），
-          内容多时自然会更高 */}
+      <Header />
       <Box
         sx={{
-          // 最小高度：100vh - AppBar 高度
           minHeight: {
             xs: `calc(100vh - ${theme.mixins.toolbar.minHeight}px)`,
-            // 如果你在移动端 AppBar 高度不是 theme.mixins.toolbar.minHeight
-            // 也可以写成固定 56px
-            // xs: 'calc(100vh - 56px)'
           },
           pt: { xs: 4, sm: 6 },
           pb: 4,
@@ -58,25 +57,33 @@ const BlogPostDetails = () => {
           backgroundAttachment: 'fixed',
         }}
       >
-      <Container
-        maxWidth="md"
-        component={Paper}
-        elevation={3}
-        sx={{ p: 4, bgcolor: 'rgba(255,255,255,0.9)', borderRadius: '16px' }}
-      >
+        <Container
+          maxWidth="md"
+          component={Paper}
+          elevation={3}
+          sx={{ p: 4, bgcolor: 'rgba(255,255,255,0.9)', borderRadius: '16px' }}
+        >
           <Typography variant="h4" gutterBottom>
             {post.title}
           </Typography>
-          <Typography variant="subtitle1" gutterBottom>
+
+          {/* —— 在这里显示作者 —— */}
+          {post.posterName && (
+           <Typography variant="subtitle2" color="text.secondary" gutterBottom>
+              Auther: {post.posterName}
+            </Typography>
+          )}
+
+          <Typography variant="subtitle2" gutterBottom>
             {post.summary}
           </Typography>
 
           {post.tags?.length > 0 && (
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 2 }}>
-              {post.tags.map((tag) => (
+              {post.tags.map(tagName => (
                 <Chip
-                  key={tag.id}
-                  label={tag.name}
+                  key={tagName}
+                  label={tagName}
                   size="small"
                   sx={{
                     bgcolor: 'primary.light',
@@ -86,6 +93,7 @@ const BlogPostDetails = () => {
               ))}
             </Box>
           )}
+
 
           <ReactMarkdown
             children={post.bodyText}
@@ -116,6 +124,12 @@ const BlogPostDetails = () => {
               },
             }}
           />
+
+         <Divider sx={{ my: 4, borderColor: 'grey.400' }} />
+
+
+          {/* ← 2. 在文章内容下方渲染评论区 */}
+          <CommentsSection postId={post.id} />
         </Container>
       </Box>
     </>

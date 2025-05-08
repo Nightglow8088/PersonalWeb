@@ -35,16 +35,12 @@ public class BlogController {
         return new ResponseEntity<>(Response.ok("BlogPost save successful."), HttpStatus.OK);
     }
 
-
-
-
     @GetMapping("/getPostDetails/{id}")
-    public ResponseEntity<Response<BlogPost>> getPostDetails(@PathVariable Integer id){
-        BlogPost result = blogPostService.getPostDetails(id);
-        Response<BlogPost> response = Response.ok(result);
+    public ResponseEntity<Response<BlogPostDTO>> getPostDetails(@PathVariable Integer id){
+        BlogPostDTO result = blogPostService.getPostDetails(id);
+        Response<BlogPostDTO> response = Response.ok(result);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
 
 
 //    @PostMapping("/savePostTest")

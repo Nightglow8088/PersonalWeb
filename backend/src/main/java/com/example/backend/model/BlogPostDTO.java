@@ -1,12 +1,13 @@
 package com.example.backend.model;
 
-import jakarta.persistence.Column;
 import lombok.Data;
 
 import java.util.List;
 import java.util.Set;
 
 @Data
+
+
 public class BlogPostDTO {
 
     private Integer id;
@@ -17,7 +18,9 @@ public class BlogPostDTO {
 
     private Integer posterId;
 
+    private String posterName;
+
     private String summary;
 
-    private Set<Integer> tagIds;
+    private Set<String> tags;
 }

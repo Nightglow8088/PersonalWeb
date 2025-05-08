@@ -77,8 +77,11 @@ public class SecurityConfig  {
                             // 新增：带 /api 前缀后的真正生产路径
                             "/api/BlogController/**",
                             "/api/ImagesController/**",
+                            //展示评论放行
+                            "/api/comments/getComments",
 
-                            "/api/auth/login", "/api/auth/register", "/api/auth/verify",
+
+                            "/api/auth/login", "/api/auth/register", "/api/auth/verify","/api/auth/logout",
                             "/oauth2/**", "/login/oauth2/**"
                     ).permitAll()
                     // 其余接口都需要认证

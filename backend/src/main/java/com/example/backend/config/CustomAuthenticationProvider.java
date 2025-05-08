@@ -72,7 +72,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         }
 
         // 4) 构造 Spring Security UserDetails
-        User.UserBuilder builder = User.withUsername(user.getName())
+        User.UserBuilder builder = User.withUsername(user.getMailAddress())
                 .password(user.getPassword())
                 .roles(user.getRole());
         return new UsernamePasswordAuthenticationToken(

@@ -13,7 +13,7 @@ public interface BlogPostService  {
 
     public void savePost(BlogPost BlogPost);
 
-    public BlogPost getPostDetails(Integer id);
+    public BlogPostDTO getPostDetails(Integer id);
 
 //    public BlogPost savePostTest(BlogPostDTO BlogPostDTO);
 

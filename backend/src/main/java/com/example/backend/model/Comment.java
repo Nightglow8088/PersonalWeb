@@ -4,35 +4,43 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
+import java.time.OffsetDateTime;
 import java.util.Objects;
 
-@Entity
-@Table(name = "basic_account", schema = "user_account")
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
-public class Users {
+@Entity
+@Table(name = "comment", schema = "user_account")
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String name;
+    // 外键指向 user_account.blog_post(id)
+    @ManyToOne
+    @JoinColumn(name = "blog_post_id", nullable = false)
+    private BlogPost post;
 
-    private String password;
+    // 外键指向 user_account.basic_account(id)
+    @ManyToOne
+    @JoinColumn(name = "commenter_id", nullable = false)
+    private Users commenter;
 
-    private String role;
+    @Column(columnDefinition = "TEXT", nullable = false)
+    private String content;
 
-    @Column(name = "mail_address")
-    private String mailAddress;
+    @Column(name = "created_at", nullable = false)
+    private OffsetDateTime createdAt = OffsetDateTime.now();
 
-    @Enumerated(EnumType.STRING)
-    private AuthProvider authProvider;   // 新增枚举字段
+    // 支持回复
+    @ManyToOne
+    @JoinColumn(name = "parent_comment_id")
+    private Comment parent;
 
 
-
-    // 支持 new Users(userId)
-    public Users(Integer id) {
+    public Comment(Integer id) {
         this.id = id;
     }
 
@@ -43,8 +51,8 @@ public class Users {
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        Users users = (Users) o;
-        return getId() != null && Objects.equals(getId(), users.getId());
+        Comment comment = (Comment) o;
+        return getId() != null && Objects.equals(getId(), comment.getId());
     }
 
     @Override

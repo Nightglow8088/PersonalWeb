@@ -7,6 +7,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+
+
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
@@ -73,6 +76,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     //这个绝对要改的 当没有header头的时候执行这段操作
     private boolean isPublicEndpoint(String uri) {
+
         return uri.startsWith("/api/auth/")      // 登录、注册、验证
                 || uri.startsWith("/api/BlogController/")   // 文章列表、详情等
                 || uri.startsWith("/api/ImagesController/") // 图片服务
@@ -81,7 +85,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 || uri.equals("/home")
                 || uri.startsWith("/oauth2/")         // OAuth2 授权
                 || uri.startsWith("/login/oauth2/")   // OAuth2 回调
-                || uri.startsWith("/h2-console/");    // H2 控制台（如果还在用）
+                || uri.startsWith("/h2-console/")   // H2 控制台（如果还在用）
+                || uri.equals("/api/comments/getComments");
+
         // 定义公共端点
 //        return uri.equals("/api/auth/login") || uri.equals("/api/auth/register") || uri.equals("/api/auth/verify") || uri.equals("/api/auth/refresh") || uri.startsWith("/h2-console");
     }
