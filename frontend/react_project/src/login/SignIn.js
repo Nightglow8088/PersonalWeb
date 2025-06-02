@@ -1,6 +1,5 @@
 // src/components/SignIn.jsx
 
-import * as React from 'react';
 import { useState } from 'react';
 import {
   Avatar,
@@ -18,6 +17,8 @@ import {
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
+import GoogleIcon from '../assest/Icon/icons8-google.svg'; // 你可以使用本地的 Google 图标
+
 import { useAuth } from '../hooks/useAuth';
 
 import Header from '../homePage/headerPage/Header';
@@ -163,12 +164,34 @@ export default function SignIn() {
                 Sign In
               </Button>
 
-              {/* Google 登录按钮 */}
+              {/* 优化后的 Google 登录按钮 */}
               <Button
                 fullWidth
-                variant="outlined"
+                variant="contained"
                 onClick={handleGoogleLogin}
-                sx={{ mb: 2 }}
+                startIcon={
+                  <Box
+                    component="img"
+                    src={GoogleIcon}
+                    alt="G"
+                    sx={{
+                      width: 20,
+                      height: 20,
+                      p: 0.5,
+                      bgcolor: '#fff',
+                      borderRadius: '50%',
+                    }}
+                  />
+                }
+                sx={{
+                  mb: 2,
+                  textTransform: 'none',
+                  backgroundColor: 'primary.main',
+                  color: '#fff',
+                  '&:hover': {
+                    backgroundColor: 'primary.dark',
+                  },
+                }}
               >
                 Sign In with Google
               </Button>
