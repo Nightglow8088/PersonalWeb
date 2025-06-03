@@ -15,38 +15,67 @@ import {
   Chip,
 } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import './NewBody.css';
+import './NewBody.css'; // 假设保留你的样式文件
 
 const API_BASE = process.env.REACT_APP_API_BASE || '';
 
 export default function NewBody() {
   const [posts, setPosts] = useState([]);
+  const [filterTag, setFilterTag] = useState('文章');
+  const [allTags, setAllTags] = useState([]);
   const navigate = useNavigate();
   const backgroundImageUrl = '/Background/fireflyOfficial.avif';
 
+  const pinnedTags = ['文章', '杂七杂八', '发癫'];
+
+  // 拉取所有文章并提取标签
   useEffect(() => {
     axios
       .get(`${API_BASE}/api/BlogController/showAllDetails`)
-      .then(res => res.data.success && setPosts(res.data.data))
+      .then(res => {
+        if (res.data.success) {
+          setPosts(res.data.data);
+
+          // 提取所有唯一标签名称
+          const tagNameSet = new Set();
+          res.data.data.forEach(post => {
+            if (Array.isArray(post.tags)) {
+              post.tags.forEach(tagObj => {
+                if (tagObj?.name) tagNameSet.add(tagObj.name);
+              });
+            }
+          });
+          setAllTags(Array.from(tagNameSet));
+        }
+      })
       .catch(console.error);
   }, []);
+
+  // 剩余标签 = allTags 去掉 pinnedTags
+  const otherTags = allTags
+    .filter(name => !pinnedTags.includes(name))
+    .sort((a, b) => a.localeCompare(b)); // 按字母排序，可以按需修改
+
+  // 根据 filterTag 过滤出要展示的文章
+  const filteredPosts = posts.filter(post =>
+    Array.isArray(post.tags) &&
+    post.tags.some(tagObj => tagObj.name === filterTag)
+  );
 
   return (
     <Box
       sx={{
         width: '100%',
-        minHeight: '100vh',            // 整个页面至少一屏高
+        minHeight: '100vh',
         backgroundImage: `url(${backgroundImageUrl})`,
         backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed', // 背景固定
+        backgroundAttachment: 'fixed',
       }}
     >
-      {/* Hero 区块 */}
+      {/* Hero 区 */}
       <Box
         sx={{
-          height: '100vh',             // Hero 占一屏
+          height: '100vh',
           position: 'relative',
         }}
       >
@@ -57,8 +86,6 @@ export default function NewBody() {
         >
           Welcome to My Blog
         </Typography>
-
-        {/* 纯提示箭头，上移到底部上方 60px */}
         <Box
           className="scroll-hint-arrow"
           sx={{
@@ -69,11 +96,11 @@ export default function NewBody() {
             pointerEvents: 'none',
           }}
         >
-          <KeyboardArrowDownIcon sx={{ fontSize: 60 }} />
+          <KeyboardArrowDownIcon sx={{ fontSize: 60, color: 'white' }} />
         </Box>
       </Box>
 
-      {/* Blog 区块 */}
+      {/* Blog 区 */}
       <Container
         maxWidth="lg"
         sx={{
@@ -83,9 +110,9 @@ export default function NewBody() {
           py: 4,
         }}
       >
-        {/* 左侧文章列表 */}
+        {/* 左侧：文章列表（被 filterTag 过滤后） */}
         <Grid container spacing={2} sx={{ width: '70%' }}>
-          {posts.map(post => (
+          {filteredPosts.map(post => (
             <Grid item xs={12} key={post.id}>
               <Card raised sx={{ bgcolor: 'rgba(255,255,255,0.8)' }}>
                 <CardContent>
@@ -135,9 +162,22 @@ export default function NewBody() {
               </Card>
             </Grid>
           ))}
+
+          {/* 如果没有任何文章匹配当前 filterTag，显示一个带背景的提示卡片 */}
+          {filteredPosts.length === 0 && (
+            <Grid item xs={12}>
+              <Card raised sx={{ bgcolor: 'rgba(255,255,255,0.8)' }}>
+                <CardContent>
+                  <Typography variant="h6" align="center" color="text.secondary">
+                    暂无标签为 “{filterTag}” 的文章
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          )}
         </Grid>
 
-        {/* 右侧粘性侧栏 */}
+        {/* 右侧：粘性侧栏 */}
         <Grid item xs={12} md={4}>
           <Box
             sx={{
@@ -147,15 +187,59 @@ export default function NewBody() {
               width: '100%',
             }}
           >
+            {/* 小组件 A：把“标签筛选”放到这里 */}
             <Card sx={{ mb: 2, p: 2, bgcolor: 'rgba(0,0,0,0.5)', color: 'white' }}>
-              <Typography variant="h6">小组件 A</Typography>
-              <Typography>这里是内容</Typography>
+              <Typography variant="h6" sx={{ mb: 1 }}>
+                Filted by tag
+              </Typography>
+
+              {/* 置顶三个标签，用白底作为默认、蓝底作为高亮 */}
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 1 }}>
+                {pinnedTags.map(name => (
+                  <Chip
+                    key={name}
+                    label={name}
+                    clickable
+                    onClick={() => setFilterTag(name)}
+                    // 选中时主题色，未选中时白底黑字
+                    color={filterTag === name ? 'primary' : 'default'}
+                    sx={{
+                      backgroundColor: filterTag === name ? undefined : '#fff',
+                      color: filterTag === name ? undefined : '#000',
+                      fontWeight: filterTag === name ? 'bold' : 'normal',
+                    }}
+                  />
+                ))}
+              </Box>
+
+              {/* 其他标签，同样：选中时用主题色，未选中时白底黑字 */}
+              {otherTags.length > 0 && (
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                  {otherTags.map(name => (
+                    <Chip
+                      key={name}
+                      label={name}
+                      clickable
+                      onClick={() => setFilterTag(name)}
+                      color={filterTag === name ? 'primary' : 'default'}
+                      sx={{
+                        backgroundColor: filterTag === name ? undefined : '#fff',
+                        color: filterTag === name ? undefined : '#000',
+                      }}
+                    />
+                  ))}
+                </Box>
+              )}
             </Card>
+
+            {/* 你原来的“最近帖子”示例 */}
             <Card sx={{ mb: 2, p: 2, bgcolor: 'rgba(0,0,0,0.5)', color: 'white' }}>
               <Typography variant="h6">最近帖子</Typography>
               <Typography>Post 1</Typography>
               <Typography>Post 2</Typography>
             </Card>
+
+            {/* 你原来的“杂七杂八”示例 */}
             <Card sx={{ p: 2, bgcolor: 'rgba(0,0,0,0.5)', color: 'white' }}>
               <Typography variant="h6">杂七杂八</Typography>
               <Typography>一些其他内容</Typography>

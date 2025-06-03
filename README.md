@@ -3,7 +3,7 @@
 # DigitOcean
 ssh -i ~/.ssh/id_rsa_digitalocean root@147.182.199.216
 
-cd srv/blog
+cd /srv/blog
 ./deploy.sh
 
 npm run build     
