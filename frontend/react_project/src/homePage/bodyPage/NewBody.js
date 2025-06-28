@@ -26,7 +26,7 @@ export default function NewBody() {
   const navigate = useNavigate();
   const backgroundImageUrl = '/Background/fireflyOfficial.avif';
 
-  const pinnedTags = ['文章', '杂七杂八', '发癫'];
+  const pinnedTags = ['文章', '日常', '发癫'];
 
   // 拉取所有文章并提取标签
   useEffect(() => {
@@ -34,7 +34,11 @@ export default function NewBody() {
       .get(`${API_BASE}/api/BlogController/showAllDetails`)
       .then(res => {
         if (res.data.success) {
-          setPosts(res.data.data);
+          // 【新增】按 createdAt 倒序排序（最新在前）
+          const sorted = res.data.data
+            .slice()
+            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+          setPosts(sorted);
 
           // 提取所有唯一标签名称
           const tagNameSet = new Set();
@@ -119,14 +123,32 @@ export default function NewBody() {
                   <Typography variant="h5" align="center">
                     {post.title}
                   </Typography>
+
+
+
+
                   <Typography
                     variant="body2"
                     color="text.secondary"
                     align="center"
-                    sx={{ fontSize: '22px', mb: 2 }}
+                    sx={{ fontSize: '22px', mb: 1 }}
                   >
                     {post.summary}
                   </Typography>
+
+                  {/* 【新增】展示创建时间 */}
+                  {post.createdAt && (
+                    <Typography
+                      variant="caption"
+                      color="text.secondary"
+                      display="block"
+                      align="center"
+                      sx={{ mb: 1 }}
+                    >
+                      创建于：{new Date(post.createdAt).toLocaleString()}
+                    </Typography>
+                  )}
+
                   {post.tags?.length > 0 && (
                     <Box
                       sx={{
@@ -150,6 +172,7 @@ export default function NewBody() {
                       ))}
                     </Box>
                   )}
+                  
                 </CardContent>
                 <CardActions sx={{ justifyContent: 'center' }}>
                   <Button
@@ -190,7 +213,7 @@ export default function NewBody() {
             {/* 小组件 A：把“标签筛选”放到这里 */}
             <Card sx={{ mb: 2, p: 2, bgcolor: 'rgba(0,0,0,0.5)', color: 'white' }}>
               <Typography variant="h6" sx={{ mb: 1 }}>
-                Filted by tag
+                Filtered by tag
               </Typography>
 
               {/* 置顶三个标签，用白底作为默认、蓝底作为高亮 */}

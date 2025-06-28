@@ -231,6 +231,10 @@ public class BlogPostServiceImpl implements BlogPostService {
         dto.setTags(post.getTags().stream()
                 .map(BlogPostTag::getName)
                 .collect(Collectors.toSet()));
+
+        // 填充时间戳
+        dto.setCreatedAt(post.getCreatedAt());
+        dto.setUpdatedAt(post.getUpdatedAt());
         return dto;
     }
 
